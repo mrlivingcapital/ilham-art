@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ilham — the dark side of an enlightened sufi's mind</title>
+<meta name="description" content="A sacred archive of souls who felt the words. A living transmission across dimensions.">
+<link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌙%3C/text%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400&display=swap');
+
+  :root {
+    --bg-dark: #0a0a0a;
+    --bg-light: #f5f0e8;
+    --text-dark: #e8e0d0;
+    --text-light: #1a1a1a;
+    --gold: #c9a96e;
+    --gold-dim: rgba(201, 169, 110, 0.3);
+    --border-dark: rgba(201, 169, 110, 0.15);
+    --border-light: rgba(26, 26, 26, 0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: var(--bg-dark);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    transition: background 1.2s ease, color 1.2s ease;
+  }
+
+  body.light-mode {
+    background: var(--bg-light);
+    color: var(--text-light);
+  }
+
+  /* ─── PARTICLE CANVAS ─── */
+  #particle-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ─── SIDE TOGGLE ─── */
+  .side-toggle {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .side-toggle .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    writing-mode: vertical-rl;
+  }
+
+  .toggle-track {
+    width: 3px;
+    height: 80px;
+    background: var(--gold-dim);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .toggle-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--gold);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px rgba(201, 169, 110, 0.4);
+    cursor: pointer;
+  }
+
+  .toggle-thumb.dark { top: 0; }
+  .toggle-thumb.light { top: calc(100% - 15px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 40px 20px;
+  }
+
+  .hero .tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 40px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 10vw, 120px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero .subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-top: 30px;
+  }
+
+  .hero .dedication {
+    font-size: 18px;
+    font-style: italic;
+    opacity: 0.6;
+    margin-top: 60px;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.3;
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.5; transform: translateX(-50%) translateY(5px); }
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-bottom: 30px;
+  }
+
+  /* ─── ABOUT THE BOOK ─── */
+  .about-text {
+    font-size: 22px;
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 700px;
+  }
+
+  .about-text p {
+    margin-bottom: 24px;
+  }
+
+  .about-text .highlight {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  /* ─── POEM CARDS ─── */
+  .poems-grid {
+    display: grid;
+    gap: 40px;
+  }
+
+  .poem-card {
+    border: 1px solid var(--border-dark);
+    padding: 50px;
+    position: relative;
+    transition: border-color 0.4s ease;
+  }
+
+  body.light-mode .poem-card {
+    border-color: var(--border-light);
+  }
+
+  .poem-card:hover {
+    border-color: var(--gold-dim);
+  }
+
+  .poem-number {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    opacity: 0.3;
+  }
+
+  .poem-title {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    color: var(--gold);
+  }
+
+  .poem-body {
+    font-size: 20px;
+    line-height: 2;
+    font-weight: 300;
+    white-space: pre-line;
+  }
+
+  .poem-body em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .poem-theme {
+    margin-top: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* ─── ECHO WALL ─── */
+  .echo-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .echo-card {
+    border: 1px solid var(--border-dark);
+    padding: 30px;
+    transition: all 0.3s ease;
+  }
+
+  .echo-card:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-3px);
+  }
+
+  .echo-text {
+    font-size: 16px;
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .echo-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* ─── UPLOAD SECTION ─── */
+  .upload-zone {
+    border: 2px dashed var(--border-dark);
+    padding: 60px 40px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .upload-zone:hover {
+    border-color: var(--gold-dim);
+  }
+
+  .upload-zone .upload-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+
+  .upload-zone p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .upload-zone .upload-hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── 11:11 MOMENT ─── */
+  .moment-1111 {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .moment-1111 .time-display {
+    font-size: clamp(60px, 15vw, 180px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.15;
+  }
+
+  .moment-1111 .moment-text {
+    font-size: 24px;
+    font-style: italic;
+    max-width: 500px;
+    margin: 30px auto 0;
+    line-height: 1.6;
+  }
+
+  /* ─── PURCHASE ─── */
+  .purchase-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  .purchase-card {
+    border: 1px solid var(--border-dark);
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .purchase-card:hover {
+    border-color: var(--gold-dim);
+  }
+
+  .purchase-card .format-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .purchase-card h3 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .purchase-card .price {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .purchase-card p {
+    font-size: 14px;
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+
+  .purchase-btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 30px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .purchase-btn:hover {
+    background: var(--gold);
+    color: var(--bg-dark);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 80px 20px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer .footer-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold-dim);
+    margin: 0 auto 40px;
+  }
+
+  footer p {
+    font-size: 13px;
+    opacity: 0.4;
+    line-height: 1.8;
+  }
+
+  footer .footer-links {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  footer a {
+    color: inherit;
+    opacity: 0.4;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+  }
+
+  footer a:hover {
+    opacity: 0.8;
+    color: var(--gold);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .side-toggle { right: 15px; }
+    .poem-card { padding: 30px 20px; }
+    .echo-wall { grid-template-columns: 1fr; }
+    .purchase-options { grid-template-columns: 1fr; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+  }
+
+  .fade-in-delay-1 { animation-delay: 0.2s; }
+  .fade-in-delay-2 { animation-delay: 0.4s; }
+  .fade-in-delay-3 { animation-delay: 0.6s; }
+</style>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<!-- SIDE TOGGLE -->
+<div class="side-toggle">
+  <span class="label">Light</span>
+  <div class="toggle-track" onclick="toggleTheme()">
+    <div class="toggle-thumb dark" id="toggle-thumb"></div>
+  </div>
+  <span class="label">Dark</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tagline fade-in">A sacred archive of souls who felt the words</div>
+  <h1 class="fade-in fade-in-delay-1">il<em>h</em>am</h1>
+  <div class="subtitle fade-in fade-in-delay-2">the dark side of an enlightened sufi's mind</div>
+  <div class="dedication fade-in fade-in-delay-3">
+    Dedicated to every soul who felt alone in their search,<br>
+    yet kept walking toward the light.
+  </div>
+  <div class="scroll-hint">Scroll to enter</div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">The Book</div>
+  <div class="about-text">
+    <p>This book has been in the making for <span class="highlight">20 years</span>. Not as a project — as a slow unfolding. A whisper that became a voice. A shadow that became light.</p>
+    <p>It is designed as a <span class="highlight">reversible volume</span>. One side: <em>The Dark Side</em> — where the struggle lives. Flip it over: <em>The Enlightened Side</em> — where the answers breathe.</p>
+    <p>These are not poems written for literary acclaim. They are transmissions — from one soul to another, across the veil that separates the seen from the unseen.</p>
+    <p>Some books are meant to be read. <span class="highlight">This one is meant to be felt.</span></p>
+  </div>
+</section>
+
+<!-- POEMS -->
+<section id="poems">
+  <div class="section-label">Selections</div>
+  <div class="poems-grid">
+
+    <div class="poem-card">
+      <div class="poem-number">01</div>
+      <div class="poem-title">The Weight of Wings</div>
+      <div class="poem-body">I carried my wings for so long
+They became heavy with dust
+I thought I was earthbound
+Until I remembered:
+<em>The wind never forgets
+those who were born to fly</em>
+
+I am not falling
+I am learning
+that gravity
+was only a suggestion</div>
+      <div class="poem-theme">Awakening · Surrender · Gravity</div>
+    </div>
+
+    <div class="poem-card">
+      <div class="poem-number">02</div>
+      <div class="poem-title">The Guest House</div>
+      <div class="poem-body">This being human is a guest house.
+Every morning a new arrival.
+
+A joy, a depression, a meanness,
+some momentary awareness comes
+as an unexpected visitor.
+
+Welcome and entertain them all!
+Even if they are a crowd of sorrows,
+who violently sweep your house
+empty of its furniture,
+<em>still, treat each guest honorably.</em>
+
+He may be clearing you out
+for some new delight.</div>
+      <div class="poem-theme">Rumi · Presence · Acceptance</div>
+    </div>
+
+    <div class="poem-card">
+      <div class="poem-number">03</div>
+      <div class="poem-title">The Space Between</div>
+      <div class="poem-body">Between the breath in
+and the breath out
+there is a silence
+older than time
+
+I have been searching for God
+in temples and texts
+when all along
+<em>He was waiting
+in the pause</em>
+
+Not in the prayer
+but in the space
+between two prayers
+where even the words
+have surrendered</div>
+      <div class="poem-theme">Divine Feminine · Stillness · Breath</div>
+    </div>
+
+    <div class="poem-card">
+      <div class="poem-number">04</div>
+      <div class="poem-title">The Mirror</div>
+      <div class="poem-body">I looked into the mirror
+and saw a stranger
+He had my eyes
+but not my pain
+
+"Who are you?" I asked
+He smiled and said:
+<em>"I am who you become
+when you stop
+looking for yourself
+in other people's reflections"</em>
+
+The mirror is not glass
+It is truth
+and truth, my friend,
+is the only thing
+that shatters
+without breaking</div>
+      <div class="poem-theme">Shadow Work · Self-Discovery · Truth</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 11:11 MOMENT -->
+<section id="moment" class="moment-1111">
+  <div class="section-label">The 11:11 Moment</div>
+  <div class="time-display" id="time-display">11:11</div>
+  <div class="moment-text">
+    At 11:11, the veil is thinnest. Take a breath. Send a light. 
+    Someone, somewhere, is breathing with you.
+  </div>
+</section>
+
+<!-- ECHO WALL -->
+<section id="echoes">
+  <div class="section-label">The Echo Wall</div>
+  <div class="echo-wall">
+    <div class="echo-card">
+      <div class="echo-text">"I read 'The Weight of Wings' at 3 AM, crying. I had forgotten I could fly."</div>
+      <div class="echo-author">— A reader from Istanbul</div>
+    </div>
+    <div class="echo-card">
+      <div class="echo-text">"This book found me on the darkest night of my life. Now I keep it by my bed like a lighthouse."</div>
+      <div class="echo-author">— From the Echo Wall</div>
+    </div>
+    <div class="echo-card">
+      <div class="echo-text">"I don't read poetry. But this... this felt like someone reached into my chest and held my heart gently."</div>
+      <div class="echo-author">— First-time poetry reader</div>
+    </div>
+    <div class="echo-card">
+      <div class="echo-text">"The reversible design is genius. I start with the dark side when I'm struggling, flip to the light when I need hope."</div>
+      <div class="echo-author">— Book club member, Dubai</div>
+    </div>
+  </div>
+</section>
+
+<!-- UPLOAD -->
+<section id="upload">
+  <div class="section-label">Add Your Voice</div>
+  <div class="upload-zone" onclick="alert('Upload functionality coming soon. For now, send your reflections to ilham@ilham.art')">
+    <div class="upload-icon">✦</div>
+    <p>Drop your handwritten reflection here</p>
+    <p class="upload-hint">Or click to upload a photo of your written response</p>
+  </div>
+</section>
+
+<!-- PURCHASE -->
+<section id="purchase">
+  <div class="section-label">Bring ilham Home</div>
+  <div class="purchase-options">
+    <div class="purchase-card">
+      <div class="format-icon">📖</div>
+      <h3>Physical Book</h3>
+      <div class="price">COMING SOON</div>
+      <p>The reversible hardcover edition. Black linen with gold foil. Flip it. Feel it.</p>
+      <a href="#" class="purchase-btn" onclick="alert('Coming soon. Join the waitlist!')">Join Waitlist</a>
+    </div>
+    <div class="purchase-card">
+      <div class="format-icon">📱</div>
+      <h3>Digital Edition</h3>
+      <div class="price">COMING SOON</div>
+      <p>Full interactive experience with audio readings, annotations, and the Echo Wall.</p>
+      <a href="#" class="purchase-btn" onclick="alert('Coming soon. Join the waitlist!')">Join Waitlist</a>
+    </div>
+    <div class="purchase-card">
+      <div class="format-icon">🎧</div>
+      <h3>Audiobook</h3>
+      <div class="price">COMING SOON</div>
+      <p>Recorded by the author. Each poem read in the voice it was written in.</p>
+      <a href="#" class="purchase-btn" onclick="alert('Coming soon. Join the waitlist!')">Join Waitlist</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-line"></div>
+  <p>ilham — the dark side of an enlightened sufi's mind</p>
+  <p style="font-size: 12px; margin-top: 10px; font-style: italic;">"I was passing by and left a piece of me."</p>
+  <div class="footer-links">
+    <a href="#about">The Book</a>
+    <a href="#poems">Poems</a>
+    <a href="#echoes">Echo Wall</a>
+    <a href="#purchase">Purchase</a>
+  </div>
+  <p style="margin-top: 40px; font-size: 11px;">© 2026 ilham. All rights reserved. A sacred transmission.</p>
+</footer>
+
+<script>
+// ─── PARTICLE SYSTEM ───
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let w, h;
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.life = Math.random() * 200 + 100;
+    this.age = 0;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.age++;
+    if (this.age > this.life || this.x < 0 || this.x > w || this.y < 0 || this.y > h) {
+      this.reset();
+    }
+  }
+  draw() {
+    const fade = this.age < 20 ? this.age / 20 : this.age > this.life - 20 ? (this.life - this.age) / 20 : 1;
+    const isLight = document.body.classList.contains('light-mode');
+    ctx.fillStyle = isLight 
+      ? `rgba(26, 26, 26, ${this.opacity * fade * 0.3})`
+      : `rgba(201, 169, 110, ${this.opacity * fade})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 60; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ─── THEME TOGGLE ───
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  const thumb = document.getElementById('toggle-thumb');
+  thumb.classList.toggle('dark');
+  thumb.classList.toggle('light');
+}
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.poem-card, .echo-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+  observer.observe(el);
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.poem-card, .echo-card, .purchase-card').forEach(el => {
+  revealObserver.observe(el);
+});
+
+// ─── LIVE CLOCK ───
+function updateTime() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const display = document.getElementById('time-display');
+  if (display) {
+    display.textContent = `${hours}:${minutes}`;
+    if (hours === '11' && minutes === '11') {
+      display.style.opacity = '0.6';
+      display.style.textShadow = '0 0 40px rgba(201,169,110,0.5)';
+    } else {
+      display.style.opacity = '0.15';
+      display.style.textShadow = 'none';
+    }
+  }
+}
+setInterval(updateTime, 1000);
+updateTime();
+</script>
+</body>
+</html>
