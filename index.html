@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>soulitude.ink — ilham | The Dark Side of An Enlightened Sufi's Mind</title>
-<meta name="description" content="A sacred digital sanctuary. The dark side of an enlightened Sufi's mind — immersive 3D mystical experience.">
+<title>soulitude.ink</title>
+<meta name="description" content="The dark side of an enlightened Sufi's mind. A digital sanctuary.">
 <meta property="og:title" content="soulitude.ink — ilham">
-<meta property="og:description" content="A sacred archive of souls who felt the words. 3D immersive Sufi poetry experience.">
+<meta property="og:description" content="A sacred archive of souls who felt the words. The dark side of an enlightened Sufi's mind.">
 <meta property="og:image" content="https://soulitude.ink/favicon.png">
 <meta property="og:url" content="https://soulitude.ink">
 <meta property="og:type" content="website">
@@ -15,8 +15,6 @@
 <link rel="apple-touch-icon" href="./favicon.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400&display=swap');
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
     --bg-dark: #0a0a0a;
@@ -28,6 +26,8 @@
     --border-dark: rgba(201, 169, 110, 0.15);
     --border-light: rgba(26, 26, 26, 0.1);
   }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     font-family: 'Cormorant Garamond', Georgia, serif;
@@ -41,7 +41,6 @@
     background: var(--bg-light);
     color: var(--text-light);
   }
-
   body.light-mode .experience-card,
   body.light-mode .echo-card {
     border-color: var(--border-light);
@@ -57,43 +56,73 @@
     color: var(--text-light);
   }
 
-  /* 3D Canvas Container */
-  #sufi-container {
+  /* PARTICLE CANVAS */
+  #particle-canvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     z-index: 0;
-  }
-
-  #sufi-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  /* Content Overlay */
-  .content-overlay {
-    position: relative;
-    z-index: 1;
     pointer-events: none;
   }
 
-  .content-overlay > * {
-    pointer-events: auto;
+  /* SIDE TOGGLE */
+  .side-toggle {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
-  /* Hero Section */
+  .side-toggle .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    writing-mode: vertical-rl;
+  }
+
+  .toggle-track {
+    width: 3px;
+    height: 80px;
+    background: var(--gold-dim);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .toggle-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--gold);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px rgba(201, 169, 110, 0.4);
+    cursor: pointer;
+  }
+
+  .toggle-thumb.dark { top: 0; }
+  .toggle-thumb.light { top: calc(100% - 15px); }
+
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     text-align: center;
     position: relative;
-    padding: 40px 20px 80px;
+    z-index: 1;
+    padding: 40px 20px;
   }
 
   .hero .tagline {
@@ -101,18 +130,16 @@
     font-size: 10px;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-    opacity: 0.6;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    opacity: 0.5;
+    margin-bottom: 40px;
   }
 
   .hero h1 {
-    font-size: clamp(48px, 10vw, 100px);
+    font-size: clamp(48px, 10vw, 120px);
     font-weight: 300;
     line-height: 1;
     letter-spacing: -0.02em;
     margin-bottom: 10px;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
   }
 
   .hero h1 em {
@@ -125,82 +152,43 @@
     font-size: 11px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    opacity: 0.5;
-    margin-top: 20px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    opacity: 0.4;
+    margin-top: 30px;
+  }
+
+  .hero .dedication {
+    font-size: 18px;
+    font-style: italic;
+    opacity: 0.6;
+    margin-top: 60px;
+    max-width: 500px;
+    line-height: 1.6;
   }
 
   .scroll-hint {
     position: absolute;
-    bottom: 30px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Inter', sans-serif;
     font-size: 9px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    opacity: 0.4;
+    opacity: 0.3;
     animation: breathe 3s ease-in-out infinite;
   }
 
   @keyframes breathe {
-    0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 0.6; transform: translateX(-50%) translateY(5px); }
+    0%, 100% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.5; transform: translateX(-50%) translateY(5px); }
   }
 
-  /* Side Toggle */
-  .side-toggle {
-    position: fixed;
-    right: 25px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .side-toggle .label {
-    font-family: 'Inter', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.4;
-    writing-mode: vertical-rl;
-  }
-
-  .toggle-track {
-    width: 3px;
-    height: 60px;
-    background: var(--gold-dim);
-    border-radius: 2px;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .toggle-thumb {
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: var(--gold);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 12px rgba(201, 169, 110, 0.4);
-    cursor: pointer;
-  }
-
-  .toggle-thumb.dark { top: 0; }
-  .toggle-thumb.light { top: calc(100% - 13px); }
-
-  /* Sections */
+  /* SECTIONS */
   section {
     position: relative;
     z-index: 1;
-    padding: 80px 20px;
-    max-width: 800px;
+    padding: 100px 20px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
@@ -209,53 +197,53 @@
     font-size: 10px;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-    opacity: 0.5;
-    margin-bottom: 25px;
+    opacity: 0.4;
+    margin-bottom: 30px;
   }
 
+  /* ABOUT THE BOOK */
   .about-text {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1.8;
     font-weight: 300;
-    max-width: 650px;
+    max-width: 700px;
   }
 
-  .about-text p { margin-bottom: 20px; }
+  .about-text p {
+    margin-bottom: 24px;
+  }
 
   .about-text .highlight {
     color: var(--gold);
     font-style: italic;
   }
 
-  /* Experience Cards */
+  /* EXPERIENCE CARDS */
   .experience-grid {
     display: grid;
-    gap: 30px;
+    gap: 40px;
   }
 
   .experience-card {
     border: 1px solid var(--border-dark);
-    padding: 40px;
+    padding: 50px;
     position: relative;
-    transition: all 0.4s ease;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(10px);
+    transition: border-color 0.4s ease;
+    text-align: center;
   }
 
   body.light-mode .experience-card {
-    background: rgba(245, 240, 232, 0.8);
     border-color: var(--border-light);
   }
 
   .experience-card:hover {
     border-color: var(--gold-dim);
-    transform: translateY(-3px);
   }
 
   .experience-number {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 20px;
+    right: 25px;
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     letter-spacing: 0.2em;
@@ -263,22 +251,22 @@
   }
 
   .experience-title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 400;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     color: var(--gold);
   }
 
   .experience-body {
-    font-size: 16px;
-    line-height: 1.9;
+    font-size: 20px;
+    line-height: 2;
     font-weight: 300;
     font-style: italic;
-    opacity: 0.85;
+    opacity: 0.8;
   }
 
   .experience-theme {
-    margin-top: 20px;
+    margin-top: 30px;
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     letter-spacing: 0.2em;
@@ -286,10 +274,96 @@
     opacity: 0.4;
   }
 
-  /* Footer */
+  /* 11:11 MOMENT */
+  .moment-1111 {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .moment-1111 .time-display {
+    font-size: clamp(60px, 15vw, 180px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.15;
+  }
+
+  .moment-1111 .moment-text {
+    font-size: 24px;
+    font-style: italic;
+    max-width: 500px;
+    margin: 30px auto 0;
+    line-height: 1.6;
+  }
+
+  /* ECHO WALL */
+  .echo-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .echo-card {
+    border: 1px solid var(--border-dark);
+    padding: 30px;
+    transition: all 0.3s ease;
+  }
+
+  .echo-card:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-3px);
+  }
+
+  .echo-text {
+    font-size: 16px;
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .echo-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* UPLOAD SECTION */
+  .upload-zone {
+    border: 2px dashed var(--border-dark);
+    padding: 60px 40px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .upload-zone:hover {
+    border-color: var(--gold-dim);
+  }
+
+  .upload-zone .upload-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+
+  .upload-zone p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .upload-zone .upload-hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+  }
+
+  /* FOOTER */
   footer {
     text-align: center;
-    padding: 60px 20px 40px;
+    padding: 80px 20px 40px;
     position: relative;
     z-index: 1;
   }
@@ -298,20 +372,20 @@
     width: 40px;
     height: 1px;
     background: var(--gold-dim);
-    margin: 0 auto 30px;
+    margin: 0 auto 40px;
   }
 
   footer p {
     font-size: 13px;
-    opacity: 0.5;
+    opacity: 0.4;
     line-height: 1.8;
   }
 
   footer .footer-links {
-    margin-top: 25px;
+    margin-top: 30px;
     display: flex;
     justify-content: center;
-    gap: 35px;
+    gap: 40px;
   }
 
   footer a {
@@ -330,71 +404,42 @@
     color: var(--gold);
   }
 
-  /* Loading Overlay */
-  #loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #0a0a0a;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 1.5s ease, visibility 1.5s ease;
-  }
-
-  #loading-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .loading-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    color: var(--gold);
-    letter-spacing: 0.3em;
-    margin-top: 20px;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
-  /* Responsive */
+  /* RESPONSIVE */
   @media (max-width: 768px) {
     .side-toggle { right: 15px; }
-    .experience-card { padding: 25px 20px; }
+    .experience-card { padding: 30px 20px; }
+    .echo-wall { grid-template-columns: 1fr; }
   }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+  }
+
+  .fade-in-delay-1 { animation-delay: 0.2s; }
+  .fade-in-delay-2 { animation-delay: 0.4s; }
+  .fade-in-delay-3 { animation-delay: 0.6s; }
 </style>
+<!-- Google Analytics 4 — Replace G-PLACEHOLDER with your Measurement ID after creating property at analytics.google.com -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PLACEHOLDER');
+</script>
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div id="loading-overlay">
-  <svg width="60" height="60" viewBox="0 0 60 60">
-    <circle cx="30" cy="30" r="25" fill="none" stroke="#c9a96e" stroke-width="1" opacity="0.3"/>
-    <circle cx="30" cy="30" r="15" fill="none" stroke="#c9a96e" stroke-width="1" opacity="0.5">
-      <animateTransform attributeName="transform" type="rotate" from="0 30 30" to="360 30 30" dur="8s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="30" cy="30" r="8" fill="#c9a96e" opacity="0.8">
-      <animate attributeName="r" values="8;10;8" dur="3s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite"/>
-    </circle>
-  </svg>
-  <div class="loading-text">AWAKENING</div>
-</div>
+<canvas id="particle-canvas"></canvas>
 
-<!-- 3D Sufi Canvas -->
-<div id="sufi-container">
-  <canvas id="sufi-canvas"></canvas>
-</div>
-
-<!-- Side Toggle -->
+<!-- SIDE TOGGLE -->
 <div class="side-toggle">
   <span class="label">Light</span>
   <div class="toggle-track" onclick="toggleTheme()">
@@ -403,625 +448,189 @@
   <span class="label">Dark</span>
 </div>
 
-<!-- Content Overlay -->
-<div class="content-overlay">
-
-  <!-- Hero -->
-  <div class="hero">
-    <div class="tagline">A sacred archive of souls who felt the words</div>
-    <h1>il<em>h</em>am</h1>
-    <div class="subtitle">the dark side of an enlightened sufi's mind</div>
-    <div class="scroll-hint">Drag to orbit · Scroll to explore</div>
+<!-- HERO -->
+<div class="hero">
+  <div class="tagline fade-in">A sacred archive of souls who felt the words</div>
+  <h1 class="fade-in fade-in-delay-1">il<em>h</em>am</h1>
+  <div class="subtitle fade-in fade-in-delay-2">the dark side of an enlightened sufi's mind</div>
+  <div class="dedication fade-in fade-in-delay-3">
+    Dedicated to every soul who felt alone in their search,<br>
+    yet kept walking toward the light.
   </div>
-
-  <!-- About -->
-  <section id="about">
-    <div class="section-label">The Book</div>
-    <div class="about-text">
-      <p>This work has been in the making for <span class="highlight">20 years</span>. Not as a project — as a slow unfolding. A whisper that became a voice. A shadow that became light.</p>
-      <p>It is designed as a <span class="highlight">reversible volume</span>. One side: <em>The Dark Side</em> — where the struggle lives. Flip it over: <em>The Enlightened Side</em> — where the answers breathe.</p>
-      <p>These are not writings for literary acclaim. They are transmissions — from one soul to another, across the veil that separates the seen from the unseen.</p>
-      <p>Some books are meant to be read. <span class="highlight">This one is meant to be felt.</span></p>
-    </div>
-  </section>
-
-  <!-- Experiences -->
-  <section id="experiences">
-    <div class="section-label">The Journey</div>
-    <div class="experience-grid">
-
-      <div class="experience-card">
-        <div class="experience-number">01</div>
-        <div class="experience-title">The Weight of Wings</div>
-        <div class="experience-body">A meditation on awakening, surrender, and the gravity that holds us earthbound — until we remember we were born to fly.</div>
-        <div class="experience-theme">Awakening · Surrender · Gravity</div>
-      </div>
-
-      <div class="experience-card">
-        <div class="experience-number">02</div>
-        <div class="experience-title">The Guest House</div>
-        <div class="experience-body">An invitation to welcome every emotion as a visitor — even the crowd of sorrows — for they may be clearing you out for some new delight.</div>
-        <div class="experience-theme">Presence · Acceptance · Rumi</div>
-      </div>
-
-      <div class="experience-card">
-        <div class="experience-number">03</div>
-        <div class="experience-title">The Space Between</div>
-        <div class="experience-body">A reflection on finding the divine not in temples or texts, but in the silence between two breaths — where even words have surrendered.</div>
-        <div class="experience-theme">Stillness · Breath · The Pause</div>
-      </div>
-
-      <div class="experience-card">
-        <div class="experience-number">04</div>
-        <div class="experience-title">The Mirror</div>
-        <div class="experience-body">A journey through shadow work and self-discovery — recognizing that truth is the only thing that shatters without breaking.</div>
-        <div class="experience-theme">Shadow Work · Truth · Self-Discovery</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-line"></div>
-    <p>soulitude.ink — the dark side of an enlightened sufi's mind</p>
-    <p style="font-size: 11px; margin-top: 8px; font-style: italic;">"I was passing by and left a piece of me."</p>
-    <div class="footer-links">
-      <a href="#about">The Book</a>
-      <a href="#experiences">The Journey</a>
-      <a href="mailto:echoes@soulitude.ink">Echo Wall</a>
-    </div>
-    <p style="margin-top: 30px; font-size: 10px; letter-spacing: 0.15em; opacity: 0.3;">&copy; 2025 soulitude.ink</p>
-  </footer>
-
+  <div class="scroll-hint">Scroll to enter</div>
 </div>
 
-<!-- Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">The Book</div>
+  <div class="about-text">
+    <p>This work has been in the making for <span class="highlight">20 years</span>. Not as a project — as a slow unfolding. A whisper that became a voice. A shadow that became light.</p>
+    <p>It is designed as a <span class="highlight">reversible volume</span>. One side: <em>The Dark Side</em> — where the struggle lives. Flip it over: <em>The Enlightened Side</em> — where the answers breathe.</p>
+    <p>These are not writings for literary acclaim. They are transmissions — from one soul to another, across the veil that separates the seen from the unseen.</p>
+    <p>Some books are meant to be read. <span class="highlight">This one is meant to be felt.</span></p>
+  </div>
+</section>
+
+<!-- EXPERIENCES -->
+<section id="experiences">
+  <div class="section-label">The Journey</div>
+  <div class="experience-grid">
+
+    <div class="experience-card">
+      <div class="experience-number">01</div>
+      <div class="experience-title">The Weight of Wings</div>
+      <div class="experience-body">A meditation on awakening, surrender, and the gravity that holds us earthbound — until we remember we were born to fly.</div>
+      <div class="experience-theme">Awakening · Surrender · Gravity</div>
+    </div>
+
+    <div class="experience-card">
+      <div class="experience-number">02</div>
+      <div class="experience-title">The Guest House</div>
+      <div class="experience-body">An invitation to welcome every emotion as a visitor — even the crowd of sorrows — for they may be clearing you out for some new delight.</div>
+      <div class="experience-theme">Presence · Acceptance · Rumi</div>
+    </div>
+
+    <div class="experience-card">
+      <div class="experience-number">03</div>
+      <div class="experience-title">The Space Between</div>
+      <div class="experience-body">A reflection on finding the divine not in temples or texts, but in the silence between two breaths — where even words have surrendered.</div>
+      <div class="experience-theme">Stillness · Breath · The Pause</div>
+    </div>
+
+    <div class="experience-card">
+      <div class="experience-number">04</div>
+      <div class="experience-title">The Mirror</div>
+      <div class="experience-body">A journey through shadow work and self-discovery — recognizing that truth is the only thing that shatters without breaking.</div>
+      <div class="experience-theme">Shadow Work · Truth · Self-Discovery</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 11:11 MOMENT -->
+<section id="moment" class="moment-1111">
+  <div class="section-label">The 11:11 Moment</div>
+  <div class="time-display" id="time-display">11:11</div>
+  <div class="moment-text">
+    At 11:11, the veil is thinnest. Take a breath. Send a light. 
+    Someone, somewhere, is breathing with you.
+  </div>
+</section>
+
+<!-- ECHO WALL -->
+<section id="echoes">
+  <div class="section-label">The Echo Wall</div>
+  <div class="echo-wall">
+    <div class="echo-card">
+      <div class="echo-text">"I read this at 3 AM, crying. I had forgotten I could fly."</div>
+      <div class="echo-author">— A reader from Istanbul</div>
+    </div>
+    <div class="echo-card">
+      <div class="echo-text">"This found me on the darkest night of my life. Now I keep it by my bed like a lighthouse."</div>
+      <div class="echo-author">— From the Echo Wall</div>
+    </div>
+    <div class="echo-card">
+      <div class="echo-text">"I don't read poetry. But this... this felt like someone reached into my chest and held my heart gently."</div>
+      <div class="echo-author">— First-time reader</div>
+    </div>
+    <div class="echo-card">
+      <div class="echo-text">"The reversible design is genius. I start with the dark side when I'm struggling, flip to the light when I need hope."</div>
+      <div class="echo-author">— Book club member, Dubai</div>
+    </div>
+  </div>
+</section>
+
+<!-- UPLOAD -->
+<section id="upload">
+  <div class="section-label">Add Your Voice</div>
+  <a class="upload-zone" href="mailto:echoes@soulitude.ink?subject=Echo%20Wall%20Reflection&body=Share%20your%20reflection%20from%20reading%20ilham..." style="text-decoration:none;color:inherit;display:block;">
+    <div class="upload-icon">✦</div>
+    <p>Drop your handwritten reflection here</p>
+    <p class="upload-hint">Or click to send your reflection via email</p>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-line"></div>
+  <p>soulitude.ink — the dark side of an enlightened sufi's mind</p>
+  <p style="font-size: 12px; margin-top: 10px; font-style: italic;">"I was passing by and left a piece of me."</p>
+  <div class="footer-links">
+    <a href="#about">The Book</a>
+    <a href="#experiences">The Journey</a>
+    <a href="#echoes">Echo Wall</a>
+  </div>
+  <p style="margin-top: 40px; font-size: 11px; letter-spacing: 0.15em; opacity: 0.25;">© 2025 soulitude.ink</p>
+</footer>
 
 <script>
-// ============================================================
-// SOULITUDE.INK — 3D SUFI EXPERIENCE
-// Procedural mystical figure with golden aura, particles, breathing
-// ============================================================
+// PARTICLE SYSTEM
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let w, h;
 
-const canvas = document.getElementById('sufi-canvas');
-const container = document.getElementById('sufi-container');
-
-// Scene Setup
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x0a0a0a, 0.02);
-
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-camera.position.set(0, 1.5, 6);
-
-const renderer = new THREE.WebGLRenderer({ 
-  canvas: canvas, 
-  antialias: true,
-  alpha: true 
-});
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.2;
-
-// ============ LIGHTING ============
-const ambientLight = new THREE.AmbientLight(0x1a3d38, 0.4);
-scene.add(ambientLight);
-
-// Main golden light from above
-const mainLight = new THREE.DirectionalLight(0xc9a87c, 1.5);
-mainLight.position.set(3, 8, 4);
-mainLight.castShadow = true;
-mainLight.shadow.mapSize.width = 2048;
-mainLight.shadow.mapSize.height = 2048;
-scene.add(mainLight);
-
-// Rim light (teal) from behind
-const rimLight = new THREE.SpotLight(0x7bbfb5, 1.0);
-rimLight.position.set(-4, 3, -5);
-rimLight.lookAt(0, 1, 0);
-scene.add(rimLight);
-
-// Under glow
-const underLight = new THREE.PointLight(0xc9a87c, 0.6, 8);
-underLight.position.set(0, -1, 2);
-scene.add(underLight);
-
-// ============ MATERIALS ============
-const robeMaterial = new THREE.MeshStandardMaterial({
-  color: 0x1a2e2a,
-  roughness: 0.7,
-  metalness: 0.1,
-  emissive: 0x0a1f1c,
-  emissiveIntensity: 0.2,
-});
-
-const innerRobeMaterial = new THREE.MeshStandardMaterial({
-  color: 0x2a3d38,
-  roughness: 0.5,
-  metalness: 0.15,
-  emissive: 0x1a3d38,
-  emissiveIntensity: 0.15,
-});
-
-const skinMaterial = new THREE.MeshStandardMaterial({
-  color: 0xc9a87c,
-  roughness: 0.6,
-  metalness: 0.05,
-  emissive: 0x8b7355,
-  emissiveIntensity: 0.1,
-});
-
-const goldMaterial = new THREE.MeshStandardMaterial({
-  color: 0xc9a87c,
-  roughness: 0.3,
-  metalness: 0.8,
-  emissive: 0xc9a87c,
-  emissiveIntensity: 0.3,
-});
-
-const glowMaterial = new THREE.MeshBasicMaterial({
-  color: 0xc9a87c,
-  transparent: true,
-  opacity: 0.15,
-  side: THREE.DoubleSide,
-  blending: THREE.AdditiveBlending,
-});
-
-// ============ SUFI FIGURE GROUP ============
-const sufiGroup = new THREE.Group();
-scene.add(sufiGroup);
-
-// Body / Robe (Main)
-const bodyGeometry = new THREE.CylinderGeometry(0.35, 0.8, 3.5, 32, 16, true);
-const bodyPositions = bodyGeometry.attributes.position;
-for (let i = 0; i < bodyPositions.count; i++) {
-  const x = bodyPositions.getX(i);
-  const y = bodyPositions.getY(i);
-  const z = bodyPositions.getZ(i);
-  const flow = Math.sin(y * 0.8) * 0.08;
-  bodyPositions.setX(i, x + flow);
-  bodyPositions.setZ(i, z + flow * 0.5);
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
 }
-bodyGeometry.computeVertexNormals();
-const body = new THREE.Mesh(bodyGeometry, robeMaterial);
-body.position.y = 0;
-body.castShadow = true;
-sufiGroup.add(body);
+window.addEventListener('resize', resize);
+resize();
 
-// Inner robe layer
-const innerBody = new THREE.Mesh(
-  new THREE.CylinderGeometry(0.3, 0.5, 2.0, 24, 1, true),
-  innerRobeMaterial
-);
-innerBody.position.y = 0.8;
-sufiGroup.add(innerBody);
-
-// Head
-const head = new THREE.Mesh(
-  new THREE.SphereGeometry(0.28, 32, 32),
-  skinMaterial
-);
-head.position.y = 2.1;
-head.scale.y = 1.15;
-head.castShadow = true;
-sufiGroup.add(head);
-
-// Face glow
-const faceGlow = new THREE.Mesh(
-  new THREE.SphereGeometry(0.25, 32, 32),
-  new THREE.MeshBasicMaterial({
-    color: 0xc9a87c,
-    transparent: true,
-    opacity: 0.08,
-    blending: THREE.AdditiveBlending,
-  })
-);
-faceGlow.position.y = 2.12;
-faceGlow.scale.y = 1.15;
-sufiGroup.add(faceGlow);
-
-// Turban
-const turban = new THREE.Mesh(
-  new THREE.TorusGeometry(0.26, 0.08, 16, 32),
-  robeMaterial
-);
-turban.position.y = 2.25;
-turban.rotation.x = Math.PI / 2;
-turban.scale.set(1, 1, 1.2);
-sufiGroup.add(turban);
-
-// Shoulders
-const shoulderGeo = new THREE.SphereGeometry(0.45, 24, 24);
-const leftShoulder = new THREE.Mesh(shoulderGeo, robeMaterial);
-leftShoulder.position.set(-0.5, 1.5, 0);
-leftShoulder.scale.set(1, 0.6, 0.8);
-sufiGroup.add(leftShoulder);
-
-const rightShoulder = new THREE.Mesh(shoulderGeo, robeMaterial);
-rightShoulder.position.set(0.5, 1.5, 0);
-rightShoulder.scale.set(1, 0.6, 0.8);
-sufiGroup.add(rightShoulder);
-
-// Arms
-const armGeo = new THREE.CylinderGeometry(0.12, 0.1, 1.2, 12);
-const leftArm = new THREE.Mesh(armGeo, robeMaterial);
-leftArm.position.set(-0.7, 0.8, 0.3);
-leftArm.rotation.z = Math.PI / 6;
-leftArm.rotation.x = -Math.PI / 8;
-sufiGroup.add(leftArm);
-
-const rightArm = new THREE.Mesh(armGeo, robeMaterial);
-rightArm.position.set(0.7, 0.8, 0.3);
-rightArm.rotation.z = -Math.PI / 6;
-rightArm.rotation.x = -Math.PI / 8;
-sufiGroup.add(rightArm);
-
-// Hands
-const handGeo = new THREE.SphereGeometry(0.1, 12, 12);
-const leftHand = new THREE.Mesh(handGeo, skinMaterial);
-leftHand.position.set(-0.9, 0.3, 0.5);
-sufiGroup.add(leftHand);
-
-const rightHand = new THREE.Mesh(handGeo, skinMaterial);
-rightHand.position.set(0.9, 0.3, 0.5);
-sufiGroup.add(rightHand);
-
-// Floating sash
-const sashCurve = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(-0.4, 1.8, 0.2),
-  new THREE.Vector3(-0.6, 1.2, 0.3),
-  new THREE.Vector3(-0.3, 0.5, 0.4),
-  new THREE.Vector3(0, 0.2, 0.3),
-  new THREE.Vector3(0.3, 0.5, 0.2),
-  new THREE.Vector3(0.5, 1.0, 0.1),
-  new THREE.Vector3(0.4, 1.6, 0.0),
-]);
-const sashGeo = new THREE.TubeGeometry(sashCurve, 32, 0.06, 8, false);
-const sash = new THREE.Mesh(sashGeo, goldMaterial);
-sufiGroup.add(sash);
-
-// ============ GOLDEN AURA ============
-const auraGroup = new THREE.Group();
-sufiGroup.add(auraGroup);
-
-// Main halo ring
-const haloGeo = new THREE.TorusGeometry(0.6, 0.02, 16, 64);
-const halo = new THREE.Mesh(haloGeo, goldMaterial);
-halo.position.y = 2.3;
-halo.rotation.x = Math.PI / 2 + 0.3;
-auraGroup.add(halo);
-
-// Outer glow rings
-for (let i = 0; i < 3; i++) {
-  const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(0.8 + i * 0.3, 0.015, 8, 64),
-    glowMaterial
-  );
-  ring.position.y = 2.3;
-  ring.rotation.x = Math.PI / 2 + 0.2 * i;
-  ring.rotation.y = i * Math.PI / 3;
-  auraGroup.add(ring);
-}
-
-// Vertical light beams
-for (let i = 0; i < 8; i++) {
-  const angle = (i / 8) * Math.PI * 2;
-  const beam = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.01, 0.03, 4, 4),
-    new THREE.MeshBasicMaterial({
-      color: 0xc9a87c,
-      transparent: true,
-      opacity: 0.1,
-      blending: THREE.AdditiveBlending,
-      side: THREE.DoubleSide,
-    })
-  );
-  beam.position.set(
-    Math.cos(angle) * 0.7,
-    1.5,
-    Math.sin(angle) * 0.7
-  );
-  beam.rotation.z = angle;
-  auraGroup.add(beam);
-}
-
-// ============ PARTICLE SYSTEM ============
-const particleCount = 400;
-const particleGeometry = new THREE.BufferGeometry();
-const positions = new Float32Array(particleCount * 3);
-const velocities = new Float32Array(particleCount * 3);
-
-for (let i = 0; i < particleCount; i++) {
-  const i3 = i * 3;
-  const theta = Math.random() * Math.PI * 2;
-  const phi = Math.random() * Math.PI;
-  const r = 1.5 + Math.random() * 4;
-  
-  positions[i3] = r * Math.sin(phi) * Math.cos(theta);
-  positions[i3 + 1] = (Math.random() - 0.5) * 6;
-  positions[i3 + 2] = r * Math.sin(phi) * Math.sin(theta);
-  
-  velocities[i3] = (Math.random() - 0.5) * 0.01;
-  velocities[i3 + 1] = Math.random() * 0.02 + 0.005;
-  velocities[i3 + 2] = (Math.random() - 0.5) * 0.01;
-}
-
-particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-const particleMaterial = new THREE.PointsMaterial({
-  color: 0xc9a87c,
-  size: 0.05,
-  transparent: true,
-  opacity: 0.6,
-  blending: THREE.AdditiveBlending,
-  sizeAttenuation: true,
-});
-
-const particles = new THREE.Points(particleGeometry, particleMaterial);
-scene.add(particles);
-
-// Orbiting ring particles
-const orbitCount = 100;
-const orbitGeo = new THREE.BufferGeometry();
-const orbitPositions = new Float32Array(orbitCount * 3);
-const orbitAngles = new Float32Array(orbitCount);
-
-for (let i = 0; i < orbitCount; i++) {
-  orbitAngles[i] = (i / orbitCount) * Math.PI * 2;
-  const r = 1.2 + Math.random() * 1.5;
-  const y = (Math.random() - 0.5) * 3;
-  orbitPositions[i * 3] = Math.cos(orbitAngles[i]) * r;
-  orbitPositions[i * 3 + 1] = y;
-  orbitPositions[i * 3 + 2] = Math.sin(orbitAngles[i]) * r;
-}
-
-orbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPositions, 3));
-const orbitMaterial = new THREE.PointsMaterial({
-  color: 0x7bbfb5,
-  size: 0.04,
-  transparent: true,
-  opacity: 0.4,
-  blending: THREE.AdditiveBlending,
-});
-const orbitParticles = new THREE.Points(orbitGeo, orbitMaterial);
-scene.add(orbitParticles);
-
-// ============ GROUND / PLATFORM ============
-const platformGeo = new THREE.CylinderGeometry(2, 2.2, 0.1, 64);
-const platformMat = new THREE.MeshStandardMaterial({
-  color: 0x0a1f1c,
-  roughness: 0.8,
-  metalness: 0.2,
-  emissive: 0x1a3d38,
-  emissiveIntensity: 0.2,
-});
-const platform = new THREE.Mesh(platformGeo, platformMat);
-platform.position.y = -1.8;
-platform.receiveShadow = true;
-scene.add(platform);
-
-// Platform glow ring
-const platRing = new THREE.Mesh(
-  new THREE.TorusGeometry(2, 0.05, 8, 64),
-  new THREE.MeshBasicMaterial({
-    color: 0xc9a87c,
-    transparent: true,
-    opacity: 0.2,
-    blending: THREE.AdditiveBlending,
-  })
-);
-platRing.position.y = -1.75;
-platRing.rotation.x = Math.PI / 2;
-scene.add(platRing);
-
-// ============ INTERACTION ============
-let mouseX = 0, mouseY = 0;
-let targetRotationX = 0, targetRotationY = 0;
-let isDragging = false;
-let previousMouseX = 0, previousMouseY = 0;
-let dragVelocityX = 0, dragVelocityY = 0;
-
-canvas.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  previousMouseX = e.clientX;
-  previousMouseY = e.clientY;
-});
-
-canvas.addEventListener('mousemove', (e) => {
-  mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-  mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-  
-  if (isDragging) {
-    const deltaX = e.clientX - previousMouseX;
-    const deltaY = e.clientY - previousMouseY;
-    targetRotationY += deltaX * 0.005;
-    targetRotationX += deltaY * 0.005;
-    dragVelocityX = deltaX * 0.005;
-    dragVelocityY = deltaY * 0.005;
-    previousMouseX = e.clientX;
-    previousMouseY = e.clientY;
+class Particle {
+  constructor() {
+    this.reset();
   }
-});
-
-canvas.addEventListener('mouseup', () => { isDragging = false; });
-canvas.addEventListener('mouseleave', () => { isDragging = false; });
-
-canvas.addEventListener('touchstart', (e) => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    previousMouseX = e.touches[0].clientX;
-    previousMouseY = e.touches[0].clientY;
+  reset() {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.life = Math.random() * 200 + 100;
+    this.age = 0;
   }
-});
-
-canvas.addEventListener('touchmove', (e) => {
-  if (isDragging && e.touches.length === 1) {
-    const deltaX = e.touches[0].clientX - previousMouseX;
-    const deltaY = e.touches[0].clientY - previousMouseY;
-    targetRotationY += deltaX * 0.005;
-    targetRotationX += deltaY * 0.005;
-    dragVelocityX = deltaX * 0.005;
-    dragVelocityY = deltaY * 0.005;
-    previousMouseX = e.touches[0].clientX;
-    previousMouseY = e.touches[0].clientY;
-  }
-});
-
-canvas.addEventListener('touchend', () => { isDragging = false; });
-
-// Scroll interaction
-let scrollProgress = 0;
-window.addEventListener('scroll', () => {
-  const maxScroll = document.body.scrollHeight - window.innerHeight;
-  scrollProgress = window.scrollY / maxScroll;
-});
-
-// ============ ANIMATION ============
-const clock = new THREE.Clock();
-
-function animate() {
-  requestAnimationFrame(animate);
-  const time = clock.getElapsedTime();
-  
-  // Breathing
-  const breath = Math.sin(time * 0.8) * 0.02 + 1;
-  sufiGroup.scale.set(breath, breath, breath);
-  
-  // Floating
-  sufiGroup.position.y = Math.sin(time * 0.5) * 0.08;
-  
-  // Smooth rotation
-  sufiGroup.rotation.y += (targetRotationY - sufiGroup.rotation.y) * 0.05;
-  sufiGroup.rotation.x += (targetRotationX - sufiGroup.rotation.x) * 0.05;
-  
-  // Inertia
-  if (!isDragging) {
-    targetRotationY += dragVelocityX;
-    targetRotationX += dragVelocityY;
-    dragVelocityX *= 0.95;
-    dragVelocityY *= 0.95;
-  }
-  
-  // Auto-rotate when idle
-  if (Math.abs(dragVelocityX) < 0.001 && !isDragging) {
-    targetRotationY += 0.001;
-  }
-  
-  // Aura rotation
-  auraGroup.rotation.y = time * 0.2;
-  auraGroup.rotation.x = Math.sin(time * 0.3) * 0.1;
-  
-  // Halo pulse
-  halo.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
-  halo.material.emissiveIntensity = 0.3 + Math.sin(time * 2) * 0.2;
-  
-  // Sash wave
-  sash.rotation.y = Math.sin(time * 0.7) * 0.1;
-  
-  // Face glow
-  faceGlow.material.opacity = 0.05 + Math.sin(time * 1.5) * 0.03;
-  
-  // Particle update
-  const pos = particles.geometry.attributes.position.array;
-  for (let i = 0; i < particleCount; i++) {
-    const i3 = i * 3;
-    pos[i3] += velocities[i3];
-    pos[i3 + 1] += velocities[i3 + 1];
-    pos[i3 + 2] += velocities[i3 + 2];
-    
-    const dist = Math.sqrt(pos[i3]**2 + pos[i3+1]**2 + pos[i3+2]**2);
-    if (dist > 6 || pos[i3 + 1] > 4) {
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.random() * Math.PI;
-      const r = 1.5 + Math.random() * 2;
-      pos[i3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i3 + 1] = -2 + Math.random() * 1;
-      pos[i3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.age++;
+    if (this.age > this.life || this.x < 0 || this.x > w || this.y < 0 || this.y > h) {
+      this.reset();
     }
   }
-  particles.geometry.attributes.position.needsUpdate = true;
-  particles.rotation.y = time * 0.05;
-  
-  // Orbit particles
-  const orbitPos = orbitParticles.geometry.attributes.position.array;
-  for (let i = 0; i < orbitCount; i++) {
-    orbitAngles[i] += 0.005 + Math.sin(time + i) * 0.002;
-    const r = 1.2 + Math.sin(time * 0.5 + i * 0.5) * 0.3;
-    orbitPos[i * 3] = Math.cos(orbitAngles[i]) * r;
-    orbitPos[i * 3 + 1] += Math.sin(time + i) * 0.001;
-    orbitPos[i * 3 + 2] = Math.sin(orbitAngles[i]) * r;
+  draw() {
+    const fade = this.age < 20 ? this.age / 20 : this.age > this.life - 20 ? (this.life - this.age) / 20 : 1;
+    const isLight = document.body.classList.contains('light-mode');
+    ctx.fillStyle = isLight 
+      ? `rgba(26, 26, 26, ${this.opacity * fade * 0.3})`
+      : `rgba(201, 169, 110, ${this.opacity * fade})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
   }
-  orbitParticles.geometry.attributes.position.needsUpdate = true;
-  
-  // Platform ring
-  platRing.material.opacity = 0.15 + Math.sin(time * 1.5) * 0.1;
-  platRing.scale.setScalar(1 + Math.sin(time * 1.5) * 0.02);
-  
-  // Camera parallax
-  camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.02;
-  camera.position.y += (1.5 + mouseY * 0.3 - camera.position.y) * 0.02;
-  camera.lookAt(0, 1, 0);
-  
-  // Scroll-reactive zoom
-  const targetZ = 6 - scrollProgress * 2;
-  camera.position.z += (targetZ - camera.position.z) * 0.02;
-  
-  renderer.render(scene, camera);
 }
 
-animate();
+for (let i = 0; i < 60; i++) {
+  particles.push(new Particle());
+}
 
-// Resize
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
+function animateParticles() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
 
-// ============ THEME TOGGLE ============
+// THEME TOGGLE
 function toggleTheme() {
   document.body.classList.toggle('light-mode');
   const thumb = document.getElementById('toggle-thumb');
   thumb.classList.toggle('dark');
   thumb.classList.toggle('light');
-  
-  if (document.body.classList.contains('light-mode')) {
-    scene.fog.color.setHex(0xf5f0e8);
-    scene.fog.density = 0.01;
-    ambientLight.intensity = 0.6;
-    mainLight.intensity = 1.0;
-    robeMaterial.color.setHex(0x2a3d38);
-    robeMaterial.emissive.setHex(0x1a3d38);
-    platformMat.color.setHex(0xe8ddd0);
-    platformMat.emissive.setHex(0xf5f0e8);
-    particleMaterial.opacity = 0.3;
-    orbitMaterial.opacity = 0.2;
-  } else {
-    scene.fog.color.setHex(0x0a0a0a);
-    scene.fog.density = 0.02;
-    ambientLight.intensity = 0.4;
-    mainLight.intensity = 1.5;
-    robeMaterial.color.setHex(0x1a2e2a);
-    robeMaterial.emissive.setHex(0x0a1f1c);
-    platformMat.color.setHex(0x0a1f1c);
-    platformMat.emissive.setHex(0x1a3d38);
-    particleMaterial.opacity = 0.6;
-    orbitMaterial.opacity = 0.4;
-  }
 }
 
-// ============ LOADING SCREEN ============
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loading-overlay').classList.add('hidden');
-  }, 2000);
-});
-
-// ============ SCROLL REVEAL ============
+// SCROLL REVEAL
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1031,22 +640,32 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.experience-card').forEach(el => {
+document.querySelectorAll('.experience-card, .echo-card').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(30px)';
   el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
   revealObserver.observe(el);
 });
-</script>
 
-<!-- Google Analytics 4 — Replace G-PLACEHOLDER with your Measurement ID after creating property at analytics.google.com -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-PLACEHOLDER');
+// LIVE CLOCK
+function updateTime() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const display = document.getElementById('time-display');
+  if (display) {
+    display.textContent = `${hours}:${minutes}`;
+    if (hours === '11' && minutes === '11') {
+      display.style.opacity = '0.6';
+      display.style.textShadow = '0 0 40px rgba(201,169,110,0.5)';
+    } else {
+      display.style.opacity = '0.15';
+      display.style.textShadow = 'none';
+    }
+  }
+}
+setInterval(updateTime, 1000);
+updateTime();
 </script>
-
 </body>
 </html>
