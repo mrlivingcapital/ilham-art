@@ -3,9 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>soulitude.ink — 3D Sufi Experience</title>
+<title>soulitude.ink — ilham | The Dark Side of An Enlightened Sufi's Mind</title>
+<meta name="description" content="A sacred digital sanctuary. The dark side of an enlightened Sufi's mind — immersive 3D mystical experience.">
+<meta property="og:title" content="soulitude.ink — ilham">
+<meta property="og:description" content="A sacred archive of souls who felt the words. 3D immersive Sufi poetry experience.">
+<meta property="og:image" content="https://soulitude.ink/favicon.png">
+<meta property="og:url" content="https://soulitude.ink">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="./favicon.png">
+<link rel="apple-touch-icon" href="./favicon.png">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -17,6 +26,7 @@
     --gold: #c9a96e;
     --gold-dim: rgba(201, 169, 110, 0.3);
     --border-dark: rgba(201, 169, 110, 0.15);
+    --border-light: rgba(26, 26, 26, 0.1);
   }
 
   body {
@@ -29,6 +39,21 @@
 
   body.light-mode {
     background: var(--bg-light);
+    color: var(--text-light);
+  }
+
+  body.light-mode .experience-card,
+  body.light-mode .echo-card {
+    border-color: var(--border-light);
+  }
+  body.light-mode .upload-zone {
+    border-color: var(--border-light);
+  }
+  body.light-mode .scroll-hint,
+  body.light-mode .section-label,
+  body.light-mode .hero .tagline,
+  body.light-mode .hero .subtitle {
+    opacity: 0.4;
     color: var(--text-light);
   }
 
@@ -67,8 +92,8 @@
     align-items: center;
     justify-content: flex-end;
     text-align: center;
-    padding: 40px 20px 80px;
     position: relative;
+    padding: 40px 20px 80px;
   }
 
   .hero .tagline {
@@ -219,7 +244,7 @@
 
   body.light-mode .experience-card {
     background: rgba(245, 240, 232, 0.8);
-    border-color: rgba(26, 26, 26, 0.1);
+    border-color: var(--border-light);
   }
 
   .experience-card:hover {
@@ -386,7 +411,7 @@
     <div class="tagline">A sacred archive of souls who felt the words</div>
     <h1>il<em>h</em>am</h1>
     <div class="subtitle">the dark side of an enlightened sufi's mind</div>
-    <div class="scroll-hint">Drag to orbit &middot; Scroll to explore</div>
+    <div class="scroll-hint">Drag to orbit · Scroll to explore</div>
   </div>
 
   <!-- About -->
@@ -409,28 +434,28 @@
         <div class="experience-number">01</div>
         <div class="experience-title">The Weight of Wings</div>
         <div class="experience-body">A meditation on awakening, surrender, and the gravity that holds us earthbound — until we remember we were born to fly.</div>
-        <div class="experience-theme">Awakening &middot; Surrender &middot; Gravity</div>
+        <div class="experience-theme">Awakening · Surrender · Gravity</div>
       </div>
 
       <div class="experience-card">
         <div class="experience-number">02</div>
         <div class="experience-title">The Guest House</div>
         <div class="experience-body">An invitation to welcome every emotion as a visitor — even the crowd of sorrows — for they may be clearing you out for some new delight.</div>
-        <div class="experience-theme">Presence &middot; Acceptance &middot; Rumi</div>
+        <div class="experience-theme">Presence · Acceptance · Rumi</div>
       </div>
 
       <div class="experience-card">
         <div class="experience-number">03</div>
         <div class="experience-title">The Space Between</div>
         <div class="experience-body">A reflection on finding the divine not in temples or texts, but in the silence between two breaths — where even words have surrendered.</div>
-        <div class="experience-theme">Stillness &middot; Breath &middot; The Pause</div>
+        <div class="experience-theme">Stillness · Breath · The Pause</div>
       </div>
 
       <div class="experience-card">
         <div class="experience-number">04</div>
         <div class="experience-title">The Mirror</div>
         <div class="experience-body">A journey through shadow work and self-discovery — recognizing that truth is the only thing that shatters without breaking.</div>
-        <div class="experience-theme">Shadow Work &middot; Truth &middot; Self-Discovery</div>
+        <div class="experience-theme">Shadow Work · Truth · Self-Discovery</div>
       </div>
 
     </div>
@@ -550,14 +575,13 @@ const glowMaterial = new THREE.MeshBasicMaterial({
 const sufiGroup = new THREE.Group();
 scene.add(sufiGroup);
 
-// Body / Robe (Main) — Tapered cylinder with custom geometry for flow
+// Body / Robe (Main)
 const bodyGeometry = new THREE.CylinderGeometry(0.35, 0.8, 3.5, 32, 16, true);
 const bodyPositions = bodyGeometry.attributes.position;
 for (let i = 0; i < bodyPositions.count; i++) {
   const x = bodyPositions.getX(i);
   const y = bodyPositions.getY(i);
   const z = bodyPositions.getZ(i);
-  // Add gentle curve/flow to robe
   const flow = Math.sin(y * 0.8) * 0.08;
   bodyPositions.setX(i, x + flow);
   bodyPositions.setZ(i, z + flow * 0.5);
@@ -568,7 +592,7 @@ body.position.y = 0;
 body.castShadow = true;
 sufiGroup.add(body);
 
-// Inner robe layer (visible at top)
+// Inner robe layer
 const innerBody = new THREE.Mesh(
   new THREE.CylinderGeometry(0.3, 0.5, 2.0, 24, 1, true),
   innerRobeMaterial
@@ -582,11 +606,11 @@ const head = new THREE.Mesh(
   skinMaterial
 );
 head.position.y = 2.1;
-head.scale.y = 1.15; // Slightly elongated
+head.scale.y = 1.15;
 head.castShadow = true;
 sufiGroup.add(head);
 
-// Face glow (inner light)
+// Face glow
 const faceGlow = new THREE.Mesh(
   new THREE.SphereGeometry(0.25, 32, 32),
   new THREE.MeshBasicMaterial({
@@ -600,7 +624,7 @@ faceGlow.position.y = 2.12;
 faceGlow.scale.y = 1.15;
 sufiGroup.add(faceGlow);
 
-// Turban / Head wrap
+// Turban
 const turban = new THREE.Mesh(
   new THREE.TorusGeometry(0.26, 0.08, 16, 32),
   robeMaterial
@@ -622,7 +646,7 @@ rightShoulder.position.set(0.5, 1.5, 0);
 rightShoulder.scale.set(1, 0.6, 0.8);
 sufiGroup.add(rightShoulder);
 
-// Arms (folded / resting)
+// Arms
 const armGeo = new THREE.CylinderGeometry(0.12, 0.1, 1.2, 12);
 const leftArm = new THREE.Mesh(armGeo, robeMaterial);
 leftArm.position.set(-0.7, 0.8, 0.3);
@@ -646,7 +670,7 @@ const rightHand = new THREE.Mesh(handGeo, skinMaterial);
 rightHand.position.set(0.9, 0.3, 0.5);
 sufiGroup.add(rightHand);
 
-// Floating sash / scarf
+// Floating sash
 const sashCurve = new THREE.CatmullRomCurve3([
   new THREE.Vector3(-0.4, 1.8, 0.2),
   new THREE.Vector3(-0.6, 1.2, 0.3),
@@ -660,7 +684,7 @@ const sashGeo = new THREE.TubeGeometry(sashCurve, 32, 0.06, 8, false);
 const sash = new THREE.Mesh(sashGeo, goldMaterial);
 sufiGroup.add(sash);
 
-// ============ GOLDEN AURA / HALO ============
+// ============ GOLDEN AURA ============
 const auraGroup = new THREE.Group();
 sufiGroup.add(auraGroup);
 
@@ -669,7 +693,7 @@ const haloGeo = new THREE.TorusGeometry(0.6, 0.02, 16, 64);
 const halo = new THREE.Mesh(haloGeo, goldMaterial);
 halo.position.y = 2.3;
 halo.rotation.x = Math.PI / 2 + 0.3;
- auraGroup.add(halo);
+auraGroup.add(halo);
 
 // Outer glow rings
 for (let i = 0; i < 3; i++) {
@@ -710,7 +734,6 @@ const particleCount = 400;
 const particleGeometry = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
 const velocities = new Float32Array(particleCount * 3);
-const sizes = new Float32Array(particleCount);
 
 for (let i = 0; i < particleCount; i++) {
   const i3 = i * 3;
@@ -725,8 +748,6 @@ for (let i = 0; i < particleCount; i++) {
   velocities[i3] = (Math.random() - 0.5) * 0.01;
   velocities[i3 + 1] = Math.random() * 0.02 + 0.005;
   velocities[i3 + 2] = (Math.random() - 0.5) * 0.01;
-  
-  sizes[i] = Math.random() * 3 + 1;
 }
 
 particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -804,7 +825,6 @@ let isDragging = false;
 let previousMouseX = 0, previousMouseY = 0;
 let dragVelocityX = 0, dragVelocityY = 0;
 
-// Mouse/Touch events
 canvas.addEventListener('mousedown', (e) => {
   isDragging = true;
   previousMouseX = e.clientX;
@@ -827,15 +847,9 @@ canvas.addEventListener('mousemove', (e) => {
   }
 });
 
-canvas.addEventListener('mouseup', () => {
-  isDragging = false;
-});
+canvas.addEventListener('mouseup', () => { isDragging = false; });
+canvas.addEventListener('mouseleave', () => { isDragging = false; });
 
-canvas.addEventListener('mouseleave', () => {
-  isDragging = false;
-});
-
-// Touch support
 canvas.addEventListener('touchstart', (e) => {
   if (e.touches.length === 1) {
     isDragging = true;
@@ -857,9 +871,7 @@ canvas.addEventListener('touchmove', (e) => {
   }
 });
 
-canvas.addEventListener('touchend', () => {
-  isDragging = false;
-});
+canvas.addEventListener('touchend', () => { isDragging = false; });
 
 // Scroll interaction
 let scrollProgress = 0;
@@ -873,22 +885,20 @@ const clock = new THREE.Clock();
 
 function animate() {
   requestAnimationFrame(animate);
-  
   const time = clock.getElapsedTime();
-  const delta = clock.getDelta();
   
-  // Breathing animation
+  // Breathing
   const breath = Math.sin(time * 0.8) * 0.02 + 1;
   sufiGroup.scale.set(breath, breath, breath);
   
-  // Subtle floating
+  // Floating
   sufiGroup.position.y = Math.sin(time * 0.5) * 0.08;
   
-  // Smooth rotation with inertia
+  // Smooth rotation
   sufiGroup.rotation.y += (targetRotationY - sufiGroup.rotation.y) * 0.05;
   sufiGroup.rotation.x += (targetRotationX - sufiGroup.rotation.x) * 0.05;
   
-  // Inertia decay
+  // Inertia
   if (!isDragging) {
     targetRotationY += dragVelocityX;
     targetRotationX += dragVelocityY;
@@ -896,7 +906,7 @@ function animate() {
     dragVelocityY *= 0.95;
   }
   
-  // Auto-rotate very slowly when not interacting
+  // Auto-rotate when idle
   if (Math.abs(dragVelocityX) < 0.001 && !isDragging) {
     targetRotationY += 0.001;
   }
@@ -912,7 +922,7 @@ function animate() {
   // Sash wave
   sash.rotation.y = Math.sin(time * 0.7) * 0.1;
   
-  // Face glow pulse
+  // Face glow
   faceGlow.material.opacity = 0.05 + Math.sin(time * 1.5) * 0.03;
   
   // Particle update
@@ -923,7 +933,6 @@ function animate() {
     pos[i3 + 1] += velocities[i3 + 1];
     pos[i3 + 2] += velocities[i3 + 2];
     
-    // Reset if too far
     const dist = Math.sqrt(pos[i3]**2 + pos[i3+1]**2 + pos[i3+2]**2);
     if (dist > 6 || pos[i3 + 1] > 4) {
       const theta = Math.random() * Math.PI * 2;
@@ -943,21 +952,21 @@ function animate() {
     orbitAngles[i] += 0.005 + Math.sin(time + i) * 0.002;
     const r = 1.2 + Math.sin(time * 0.5 + i * 0.5) * 0.3;
     orbitPos[i * 3] = Math.cos(orbitAngles[i]) * r;
-    orbitPos[i * 3 + 1] = orbitPos[i * 3 + 1] + Math.sin(time + i) * 0.001;
+    orbitPos[i * 3 + 1] += Math.sin(time + i) * 0.001;
     orbitPos[i * 3 + 2] = Math.sin(orbitAngles[i]) * r;
   }
   orbitParticles.geometry.attributes.position.needsUpdate = true;
   
-  // Platform ring pulse
+  // Platform ring
   platRing.material.opacity = 0.15 + Math.sin(time * 1.5) * 0.1;
   platRing.scale.setScalar(1 + Math.sin(time * 1.5) * 0.02);
   
-  // Camera subtle movement based on mouse (parallax)
+  // Camera parallax
   camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.02;
   camera.position.y += (1.5 + mouseY * 0.3 - camera.position.y) * 0.02;
   camera.lookAt(0, 1, 0);
   
-  // Scroll-reactive camera distance
+  // Scroll-reactive zoom
   const targetZ = 6 - scrollProgress * 2;
   camera.position.z += (targetZ - camera.position.z) * 0.02;
   
@@ -966,7 +975,7 @@ function animate() {
 
 animate();
 
-// ============ RESIZE ============
+// Resize
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -980,7 +989,6 @@ function toggleTheme() {
   thumb.classList.toggle('dark');
   thumb.classList.toggle('light');
   
-  // Update scene for light mode
   if (document.body.classList.contains('light-mode')) {
     scene.fog.color.setHex(0xf5f0e8);
     scene.fog.density = 0.01;
@@ -1029,6 +1037,15 @@ document.querySelectorAll('.experience-card').forEach(el => {
   el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
   revealObserver.observe(el);
 });
+</script>
+
+<!-- Google Analytics 4 — Replace G-PLACEHOLDER with your Measurement ID after creating property at analytics.google.com -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PLACEHOLDER');
 </script>
 
 </body>
