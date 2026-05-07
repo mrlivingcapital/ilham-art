@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>soulitude.ink</title>
 <meta name="description" content="The dark side of an enlightened Sufi's mind. A digital sanctuary.">
+<meta property="og:title" content="soulitude.ink — ilham">
+<meta property="og:description" content="A sacred archive of souls who felt the words. The dark side of an enlightened Sufi's mind.">
+<meta property="og:image" content="https://soulitude.ink/favicon.png">
+<meta property="og:url" content="https://soulitude.ink">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="./favicon.png">
+<link rel="apple-touch-icon" href="./favicon.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400&display=swap');
 
@@ -32,6 +39,20 @@
 
   body.light-mode {
     background: var(--bg-light);
+    color: var(--text-light);
+  }
+  body.light-mode .experience-card,
+  body.light-mode .echo-card {
+    border-color: var(--border-light);
+  }
+  body.light-mode .upload-zone {
+    border-color: var(--border-light);
+  }
+  body.light-mode .scroll-hint,
+  body.light-mode .section-label,
+  body.light-mode .hero .tagline,
+  body.light-mode .hero .subtitle {
+    opacity: 0.4;
     color: var(--text-light);
   }
 
@@ -405,6 +426,14 @@
   .fade-in-delay-2 { animation-delay: 0.4s; }
   .fade-in-delay-3 { animation-delay: 0.6s; }
 </style>
+<!-- Google Analytics 4 — Create property at analytics.google.com using masoud.rahemi@gmail.com, then replace G-PLACEHOLDER below -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PLACEHOLDER');
+</script>
 </head>
 <body>
 
@@ -514,11 +543,11 @@
 <!-- UPLOAD -->
 <section id="upload">
   <div class="section-label">Add Your Voice</div>
-  <div class="upload-zone" onclick="alert('Upload functionality coming soon. For now, send your reflections to echoes@soulitude.ink')">
+  <a class="upload-zone" href="mailto:echoes@soulitude.ink?subject=Echo%20Wall%20Reflection&body=Share%20your%20reflection%20from%20reading%20ilham..." style="text-decoration:none;color:inherit;display:block;">
     <div class="upload-icon">✦</div>
     <p>Drop your handwritten reflection here</p>
-    <p class="upload-hint">Or click to upload a photo of your written response</p>
-  </div>
+    <p class="upload-hint">Or click to send your reflection via email</p>
+  </a>
 </section>
 
 <!-- FOOTER -->
