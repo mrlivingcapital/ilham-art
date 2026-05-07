@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ilham — the dark side of an enlightened sufi's mind</title>
-<meta name="description" content="A sacred archive of souls who felt the words. A living transmission across dimensions.">
-<link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌙%3C/text%3E%3C/svg%3E">
+<title>soulitude.ink</title>
+<meta name="description" content="The dark side of an enlightened Sufi's mind. A digital sanctuary.">
+<link rel="icon" type="image/png" href="./favicon.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400&display=swap');
 
@@ -35,7 +35,7 @@
     color: var(--text-light);
   }
 
-  /* ─── PARTICLE CANVAS ─── */
+  /* PARTICLE CANVAS */
   #particle-canvas {
     position: fixed;
     top: 0; left: 0;
@@ -44,7 +44,7 @@
     pointer-events: none;
   }
 
-  /* ─── SIDE TOGGLE ─── */
+  /* SIDE TOGGLE */
   .side-toggle {
     position: fixed;
     right: 30px;
@@ -91,7 +91,7 @@
   .toggle-thumb.dark { top: 0; }
   .toggle-thumb.light { top: calc(100% - 15px); }
 
-  /* ─── HERO ─── */
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -162,7 +162,7 @@
     50% { opacity: 0.5; transform: translateX(-50%) translateY(5px); }
   }
 
-  /* ─── SECTIONS ─── */
+  /* SECTIONS */
   section {
     position: relative;
     z-index: 1;
@@ -180,7 +180,7 @@
     margin-bottom: 30px;
   }
 
-  /* ─── ABOUT THE BOOK ─── */
+  /* ABOUT THE BOOK */
   .about-text {
     font-size: 22px;
     line-height: 1.8;
@@ -197,28 +197,29 @@
     font-style: italic;
   }
 
-  /* ─── POEM CARDS ─── */
-  .poems-grid {
+  /* EXPERIENCE CARDS */
+  .experience-grid {
     display: grid;
     gap: 40px;
   }
 
-  .poem-card {
+  .experience-card {
     border: 1px solid var(--border-dark);
     padding: 50px;
     position: relative;
     transition: border-color 0.4s ease;
+    text-align: center;
   }
 
-  body.light-mode .poem-card {
+  body.light-mode .experience-card {
     border-color: var(--border-light);
   }
 
-  .poem-card:hover {
+  .experience-card:hover {
     border-color: var(--gold-dim);
   }
 
-  .poem-number {
+  .experience-number {
     position: absolute;
     top: 20px;
     right: 25px;
@@ -228,26 +229,22 @@
     opacity: 0.3;
   }
 
-  .poem-title {
+  .experience-title {
     font-size: 28px;
     font-weight: 400;
     margin-bottom: 25px;
     color: var(--gold);
   }
 
-  .poem-body {
+  .experience-body {
     font-size: 20px;
     line-height: 2;
     font-weight: 300;
-    white-space: pre-line;
-  }
-
-  .poem-body em {
-    color: var(--gold);
     font-style: italic;
+    opacity: 0.8;
   }
 
-  .poem-theme {
+  .experience-theme {
     margin-top: 30px;
     font-family: 'Inter', sans-serif;
     font-size: 10px;
@@ -256,7 +253,29 @@
     opacity: 0.4;
   }
 
-  /* ─── ECHO WALL ─── */
+  /* 11:11 MOMENT */
+  .moment-1111 {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .moment-1111 .time-display {
+    font-size: clamp(60px, 15vw, 180px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.15;
+  }
+
+  .moment-1111 .moment-text {
+    font-size: 24px;
+    font-style: italic;
+    max-width: 500px;
+    margin: 30px auto 0;
+    line-height: 1.6;
+  }
+
+  /* ECHO WALL */
   .echo-wall {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -289,7 +308,7 @@
     opacity: 0.5;
   }
 
-  /* ─── UPLOAD SECTION ─── */
+  /* UPLOAD SECTION */
   .upload-zone {
     border: 2px dashed var(--border-dark);
     padding: 60px 40px;
@@ -320,94 +339,7 @@
     letter-spacing: 0.1em;
   }
 
-  /* ─── 11:11 MOMENT ─── */
-  .moment-1111 {
-    text-align: center;
-    padding: 80px 20px;
-  }
-
-  .moment-1111 .time-display {
-    font-size: clamp(60px, 15vw, 180px);
-    font-weight: 300;
-    line-height: 1;
-    color: var(--gold);
-    opacity: 0.15;
-  }
-
-  .moment-1111 .moment-text {
-    font-size: 24px;
-    font-style: italic;
-    max-width: 500px;
-    margin: 30px auto 0;
-    line-height: 1.6;
-  }
-
-  /* ─── PURCHASE ─── */
-  .purchase-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-  }
-
-  .purchase-card {
-    border: 1px solid var(--border-dark);
-    padding: 40px 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-
-  .purchase-card:hover {
-    border-color: var(--gold-dim);
-  }
-
-  .purchase-card .format-icon {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-
-  .purchase-card h3 {
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 10px;
-  }
-
-  .purchase-card .price {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-
-  .purchase-card p {
-    font-size: 14px;
-    opacity: 0.6;
-    line-height: 1.6;
-  }
-
-  .purchase-btn {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 30px;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    background: transparent;
-    cursor: pointer;
-  }
-
-  .purchase-btn:hover {
-    background: var(--gold);
-    color: var(--bg-dark);
-  }
-
-  /* ─── FOOTER ─── */
+  /* FOOTER */
   footer {
     text-align: center;
     padding: 80px 20px 40px;
@@ -451,15 +383,14 @@
     color: var(--gold);
   }
 
-  /* ─── RESPONSIVE ─── */
+  /* RESPONSIVE */
   @media (max-width: 768px) {
     .side-toggle { right: 15px; }
-    .poem-card { padding: 30px 20px; }
+    .experience-card { padding: 30px 20px; }
     .echo-wall { grid-template-columns: 1fr; }
-    .purchase-options { grid-template-columns: 1fr; }
   }
 
-  /* ─── ANIMATIONS ─── */
+  /* ANIMATIONS */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -504,100 +435,44 @@
 <section id="about">
   <div class="section-label">The Book</div>
   <div class="about-text">
-    <p>This book has been in the making for <span class="highlight">20 years</span>. Not as a project — as a slow unfolding. A whisper that became a voice. A shadow that became light.</p>
+    <p>This work has been in the making for <span class="highlight">20 years</span>. Not as a project — as a slow unfolding. A whisper that became a voice. A shadow that became light.</p>
     <p>It is designed as a <span class="highlight">reversible volume</span>. One side: <em>The Dark Side</em> — where the struggle lives. Flip it over: <em>The Enlightened Side</em> — where the answers breathe.</p>
-    <p>These are not poems written for literary acclaim. They are transmissions — from one soul to another, across the veil that separates the seen from the unseen.</p>
+    <p>These are not writings for literary acclaim. They are transmissions — from one soul to another, across the veil that separates the seen from the unseen.</p>
     <p>Some books are meant to be read. <span class="highlight">This one is meant to be felt.</span></p>
   </div>
 </section>
 
-<!-- POEMS -->
-<section id="poems">
-  <div class="section-label">Selections</div>
-  <div class="poems-grid">
+<!-- EXPERIENCES -->
+<section id="experiences">
+  <div class="section-label">The Journey</div>
+  <div class="experience-grid">
 
-    <div class="poem-card">
-      <div class="poem-number">01</div>
-      <div class="poem-title">The Weight of Wings</div>
-      <div class="poem-body">I carried my wings for so long
-They became heavy with dust
-I thought I was earthbound
-Until I remembered:
-<em>The wind never forgets
-those who were born to fly</em>
-
-I am not falling
-I am learning
-that gravity
-was only a suggestion</div>
-      <div class="poem-theme">Awakening · Surrender · Gravity</div>
+    <div class="experience-card">
+      <div class="experience-number">01</div>
+      <div class="experience-title">The Weight of Wings</div>
+      <div class="experience-body">A meditation on awakening, surrender, and the gravity that holds us earthbound — until we remember we were born to fly.</div>
+      <div class="experience-theme">Awakening · Surrender · Gravity</div>
     </div>
 
-    <div class="poem-card">
-      <div class="poem-number">02</div>
-      <div class="poem-title">The Guest House</div>
-      <div class="poem-body">This being human is a guest house.
-Every morning a new arrival.
-
-A joy, a depression, a meanness,
-some momentary awareness comes
-as an unexpected visitor.
-
-Welcome and entertain them all!
-Even if they are a crowd of sorrows,
-who violently sweep your house
-empty of its furniture,
-<em>still, treat each guest honorably.</em>
-
-He may be clearing you out
-for some new delight.</div>
-      <div class="poem-theme">Rumi · Presence · Acceptance</div>
+    <div class="experience-card">
+      <div class="experience-number">02</div>
+      <div class="experience-title">The Guest House</div>
+      <div class="experience-body">An invitation to welcome every emotion as a visitor — even the crowd of sorrows — for they may be clearing you out for some new delight.</div>
+      <div class="experience-theme">Presence · Acceptance · Rumi</div>
     </div>
 
-    <div class="poem-card">
-      <div class="poem-number">03</div>
-      <div class="poem-title">The Space Between</div>
-      <div class="poem-body">Between the breath in
-and the breath out
-there is a silence
-older than time
-
-I have been searching for God
-in temples and texts
-when all along
-<em>He was waiting
-in the pause</em>
-
-Not in the prayer
-but in the space
-between two prayers
-where even the words
-have surrendered</div>
-      <div class="poem-theme">Divine Feminine · Stillness · Breath</div>
+    <div class="experience-card">
+      <div class="experience-number">03</div>
+      <div class="experience-title">The Space Between</div>
+      <div class="experience-body">A reflection on finding the divine not in temples or texts, but in the silence between two breaths — where even words have surrendered.</div>
+      <div class="experience-theme">Stillness · Breath · The Pause</div>
     </div>
 
-    <div class="poem-card">
-      <div class="poem-number">04</div>
-      <div class="poem-title">The Mirror</div>
-      <div class="poem-body">I looked into the mirror
-and saw a stranger
-He had my eyes
-but not my pain
-
-"Who are you?" I asked
-He smiled and said:
-<em>"I am who you become
-when you stop
-looking for yourself
-in other people's reflections"</em>
-
-The mirror is not glass
-It is truth
-and truth, my friend,
-is the only thing
-that shatters
-without breaking</div>
-      <div class="poem-theme">Shadow Work · Self-Discovery · Truth</div>
+    <div class="experience-card">
+      <div class="experience-number">04</div>
+      <div class="experience-title">The Mirror</div>
+      <div class="experience-body">A journey through shadow work and self-discovery — recognizing that truth is the only thing that shatters without breaking.</div>
+      <div class="experience-theme">Shadow Work · Truth · Self-Discovery</div>
     </div>
 
   </div>
@@ -618,16 +493,16 @@ without breaking</div>
   <div class="section-label">The Echo Wall</div>
   <div class="echo-wall">
     <div class="echo-card">
-      <div class="echo-text">"I read 'The Weight of Wings' at 3 AM, crying. I had forgotten I could fly."</div>
+      <div class="echo-text">"I read this at 3 AM, crying. I had forgotten I could fly."</div>
       <div class="echo-author">— A reader from Istanbul</div>
     </div>
     <div class="echo-card">
-      <div class="echo-text">"This book found me on the darkest night of my life. Now I keep it by my bed like a lighthouse."</div>
+      <div class="echo-text">"This found me on the darkest night of my life. Now I keep it by my bed like a lighthouse."</div>
       <div class="echo-author">— From the Echo Wall</div>
     </div>
     <div class="echo-card">
       <div class="echo-text">"I don't read poetry. But this... this felt like someone reached into my chest and held my heart gently."</div>
-      <div class="echo-author">— First-time poetry reader</div>
+      <div class="echo-author">— First-time reader</div>
     </div>
     <div class="echo-card">
       <div class="echo-text">"The reversible design is genius. I start with the dark side when I'm struggling, flip to the light when I need hope."</div>
@@ -639,78 +514,28 @@ without breaking</div>
 <!-- UPLOAD -->
 <section id="upload">
   <div class="section-label">Add Your Voice</div>
-  <div class="upload-zone" onclick="alert('Upload functionality coming soon. For now, send your reflections to ilham@ilham.art')">
+  <div class="upload-zone" onclick="alert('Upload functionality coming soon. For now, send your reflections to echoes@soulitude.ink')">
     <div class="upload-icon">✦</div>
     <p>Drop your handwritten reflection here</p>
     <p class="upload-hint">Or click to upload a photo of your written response</p>
   </div>
 </section>
 
-<!-- PURCHASE -->
-<section id="purchase">
-  <div class="section-label">Bring ilham Home</div>
-  <div class="purchase-options">
-    <div class="purchase-card">
-      <div class="format-icon">📱</div>
-      <h3>Digital Edition</h3>
-      <div class="price">$9.99</div>
-      <p>PDF + Epub. Instant delivery. The full reversible experience on any device.</p>
-      <a href="https://gumroad.com/l/ilham-book" class="purchase-btn" target="_blank">Buy on Gumroad</a>
-      <p style="font-size: 12px; opacity: 0.4; margin-top: 15px;">Also available on <a href="https://amazon.com" target="_blank" style="color: var(--gold); opacity: 0.6;">Amazon Kindle</a></p>
-    </div>
-    <div class="purchase-card">
-      <div class="format-icon">📖</div>
-      <h3>Paperback</h3>
-      <div class="price">$14.99</div>
-      <p>The reversible paperback. Hold it in your hands. Feel the weight of 20 years.</p>
-      <a href="https://amazon.com" class="purchase-btn" target="_blank">Buy on Amazon</a>
-      <p style="font-size: 12px; opacity: 0.4; margin-top: 15px;">Free shipping with Prime</p>
-    </div>
-    <div class="purchase-card">
-      <div class="format-icon">🎧</div>
-      <h3>Audiobook</h3>
-      <div class="price">$9.99</div>
-      <p>Narrated by the author using AI voice technology. Every poem in the voice it was written in.</p>
-      <a href="https://gumroad.com/l/ilham-audio" class="purchase-btn" target="_blank">Buy on Gumroad</a>
-      <p style="font-size: 12px; opacity: 0.4; margin-top: 15px;">Also on <a href="#" style="color: var(--gold); opacity: 0.6;">Audible</a> soon</p>
-    </div>
-  </div>
-
-  <!-- Bundle -->
-  <div style="text-align: center; margin-top: 60px; padding: 40px; border: 1px solid var(--border-dark);">
-    <div class="section-label" style="margin-bottom: 20px;">The Complete ilham Experience</div>
-    <div style="font-size: 32px; color: var(--gold); font-family: 'Space Grotesk', sans-serif; margin-bottom: 15px;">Digital + Audio Bundle</div>
-    <div style="font-size: 48px; color: var(--text-dark); font-weight: 300; line-height: 1;">$14.99 <span style="font-size: 20px; opacity: 0.4; text-decoration: line-through;">$19.98</span></div>
-    <p style="opacity: 0.5; margin-top: 15px; font-size: 16px;">Save $5. Read it. Listen to it. Feel it.</p>
-    <a href="https://gumroad.com/l/ilham-bundle" class="purchase-btn" target="_blank" style="margin-top: 25px;">Get the Bundle</a>
-  </div>
-
-  <!-- Hardcover -->
-  <div style="text-align: center; margin-top: 40px;">
-    <p style="font-size: 14px; opacity: 0.4; font-style: italic;">
-      Hardcover reversible edition coming soon — <a href="#" onclick="alert('Join the waitlist: Send email to masoud@mrlivingcapital.com with subject ILHAM HARDCOVER')" style="color: var(--gold);">Join the waitlist</a>
-    </p>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-line"></div>
-  <p>ilham — the dark side of an enlightened sufi's mind</p>
+  <p>soulitude.ink — the dark side of an enlightened sufi's mind</p>
   <p style="font-size: 12px; margin-top: 10px; font-style: italic;">"I was passing by and left a piece of me."</p>
   <div class="footer-links">
     <a href="#about">The Book</a>
-    <a href="#poems">Poems</a>
+    <a href="#experiences">The Journey</a>
     <a href="#echoes">Echo Wall</a>
-    <a href="#purchase">Purchase</a>
   </div>
-  <p style="margin-top: 20px; font-size: 12px; letter-spacing: 0.15em;">© 2026 Masoud Rahemi. All Rights Reserved.</p>
-<p style="margin-top: 8px; font-size: 11px; opacity: 0.3;">UAE Copyright Registered · ISBN Pending</p>
-<p style="margin-top: 8px; font-size: 10px; opacity: 0.25; font-style: italic;">No part of this publication may be reproduced or transmitted without written permission.</p>
+  <p style="margin-top: 40px; font-size: 11px; letter-spacing: 0.15em; opacity: 0.25;">© 2025 soulitude.ink</p>
 </footer>
 
 <script>
-// ─── PARTICLE SYSTEM ───
+// PARTICLE SYSTEM
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -768,7 +593,7 @@ function animateParticles() {
 }
 animateParticles();
 
-// ─── THEME TOGGLE ───
+// THEME TOGGLE
 function toggleTheme() {
   document.body.classList.toggle('light-mode');
   const thumb = document.getElementById('toggle-thumb');
@@ -776,22 +601,7 @@ function toggleTheme() {
   thumb.classList.toggle('light');
 }
 
-// ─── SCROLL REVEAL ───
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.animationPlayState = 'running';
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.poem-card, .echo-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-  observer.observe(el);
-});
-
+// SCROLL REVEAL
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -801,11 +611,14 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.poem-card, .echo-card, .purchase-card').forEach(el => {
+document.querySelectorAll('.experience-card, .echo-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
   revealObserver.observe(el);
 });
 
-// ─── LIVE CLOCK ───
+// LIVE CLOCK
 function updateTime() {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, '0');
