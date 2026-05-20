@@ -78,7 +78,7 @@ body, html {
     
     /* THE TRICK: Wipes away the white card canvas background completely */
     mix-blend-mode: multiply;
-    opacity: 0.18; /* Muted atmospheric value to protect text legibility */
+    opacity: 0.45; /* Muted atmospheric value to protect text legibility */
     
     pointer-events: none;
     z-index: 2;
