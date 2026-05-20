@@ -1,6 +1,6 @@
 /* ==========================================================================
-   THE DARK SIDE OF AN ENLIGHTENED SUFI'S MIND - MASTER DESIGN SYSTEM V2
-   Integrating Finallized Persian Geometric Border Assets
+   THE DARK SIDE OF AN ENLIGHTENED SUFI'S MIND - MASTER DESIGN SYSTEM V3
+   Dynamic Multiply Blending for Raw Canva Page Border Images
    ========================================================================== */
 
 :root {
@@ -48,50 +48,66 @@ body, html {
 }
 
 /* ==========================================================================
-   THE LIVING MANUSCRIPT BORDER SYSTEM
-   Pulls your custom designed border framing dynamically onto the screen
+   THE DIGITAL MANUSCRIPT CONTAINER
+   Injects the Canva page, melting the white edges into the void black background
    ========================================================================== */
 .manuscript-frame-wrapper {
     position: relative;
     width: 100%;
-    max-width: 850px;
+    max-width: 780px;
     margin: 0 auto;
-    padding: 4rem;
-    background: rgba(5, 5, 5, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    
-    /* Subtle glow boundary matching your manuscript pages */
-    border: 1px solid rgba(183, 189, 199, 0.08);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+    padding: 6rem 5rem;
+    background-color: #0b0b0b;
+    border: 1px solid rgba(183, 189, 199, 0.05);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
 }
 
-/* Creating the geometric framing system using decorative edge selectors */
+/* The Live Artwork Border Overlay Layer */
 .manuscript-frame-wrapper::before {
     content: '';
     position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    border: 1px solid rgba(201, 106, 27, 0.15);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/manuscript-border.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* THE TRICK: Wipes away the white card canvas background completely */
+    mix-blend-mode: multiply;
+    opacity: 0.18; /* Muted atmospheric value to protect text legibility */
+    
     pointer-events: none;
     z-index: 2;
+}
+
+/* Inner Layout Guard to keep text inside the geometry center boundaries */
+.frame-content-gate {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ==========================================================================
    SECTION UI COMPONENTS
    ========================================================================== */
 .hero-void {
-    background: radial-gradient(circle at center, #0f0d0b 0%, var(--void-black) 80%);
+    background: radial-gradient(circle at center, #120e0a 0%, var(--void-black) 85%);
 }
 
 .main-title {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 4.5vw, 4rem);
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
     font-weight: 400;
-    line-height: 1.3;
-    letter-spacing: 0.35rem;
+    line-height: 1.4;
+    letter-spacing: 0.4rem;
     text-transform: uppercase;
     color: var(--aura-white);
     text-align: center;
@@ -99,7 +115,7 @@ body, html {
 
 .subtitle-serif {
     display: block;
-    font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+    font-size: clamp(1rem, 2vw, 1.6rem);
     letter-spacing: 0.15rem;
     color: var(--spirit-silver);
     font-weight: 400;
@@ -112,26 +128,27 @@ body, html {
     font-size: 1.6rem;
     letter-spacing: 0.8rem;
     color: var(--flame-orange);
-    text-shadow: 0 0 15px rgba(201, 106, 27, 0.3);
+    text-shadow: 0 0 20px rgba(201, 106, 27, 0.4);
     font-weight: 700;
-    margin-top: 3.5rem;
+    margin-top: 4rem;
     text-align: center;
 }
 
-/* Duality Canvas Setup */
+/* Duality Canvas Section */
 .duality-canvas {
     background-color: var(--void-black);
 }
 
 .canvas-container {
     width: 100%;
-    max-width: 900px;
-    height: 75vh;
+    max-width: 800px;
+    height: 80vh;
     position: relative;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .sufi-layer {
@@ -144,29 +161,28 @@ body, html {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.9;
+    opacity: 0.85;
     z-index: 1;
 }
 
 .testimony-text {
     font-family: var(--font-heading);
-    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-    line-height: 1.8;
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    line-height: 1.9;
     color: var(--spirit-silver);
     text-align: center;
     letter-spacing: 0.08rem;
-    max-width: 650px;
-    margin: 0 auto;
+    max-width: 550px;
 }
 
 /* Gateway Form UI */
 .gateway-release {
-    background: linear-gradient(to bottom, var(--void-black) 0%, #0d0905 100%);
+    background: linear-gradient(to bottom, var(--void-black) 0%, #0a0705 100%);
 }
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
     text-transform: uppercase;
     letter-spacing: 0.25rem;
     color: var(--gold-glow);
@@ -186,16 +202,15 @@ body, html {
 .launch-gate-form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
     width: 100%;
-    max-width: 450px;
-    margin: 0 auto;
+    max-width: 400px;
 }
 
 .gate-input {
     width: 100%;
-    padding: 1.1rem;
-    background-color: rgba(255, 255, 255, 0.02);
+    padding: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(183, 189, 199, 0.15);
     color: var(--aura-white);
     font-family: var(--font-body);
@@ -206,12 +221,11 @@ body, html {
 .gate-input:focus {
     outline: none;
     border-color: var(--flame-orange);
-    background-color: rgba(201, 106, 27, 0.02);
 }
 
 .gate-button {
     width: 100%;
-    padding: 1.1rem;
+    padding: 1.2rem;
     background-color: var(--flame-orange);
     color: var(--void-black);
     font-family: var(--font-heading);
@@ -226,18 +240,14 @@ body, html {
 
 .gate-button:hover {
     background-color: var(--gold-glow);
-    box-shadow: 0 0 20px rgba(242, 179, 92, 0.3);
 }
 
 /* Mobile Configurations */
 @media (max-width: 768px) {
     .manuscript-frame-wrapper {
-        padding: 2rem 1.5rem;
+        padding: 4rem 2rem;
     }
-    .manuscript-frame-wrapper::before {
-        top: 8px;
-        left: 8px;
-        right: 8px;
-        bottom: 8px;
+    .canvas-container {
+        height: 60vh;
     }
 }
