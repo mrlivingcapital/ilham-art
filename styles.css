@@ -1,6 +1,6 @@
 /* ==========================================================================
-   THE DARK SIDE OF AN ENLIGHTENED SUFI'S MIND - MASTER DESIGN SYSTEM
-   Color Palette: #050505 (Void), #C96A1B (Flame), #F2B35C (Gold Glow)
+   THE DARK SIDE OF AN ENLIGHTENED SUFI'S MIND - MASTER DESIGN SYSTEM V2
+   Integrating Finallized Persian Geometric Border Assets
    ========================================================================== */
 
 :root {
@@ -29,7 +29,7 @@ body, html {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Smooth Scrolling Wrapper */
+/* Scroll Environment Wrapper */
 .scroll-container {
     width: 100%;
     position: relative;
@@ -43,72 +43,97 @@ body, html {
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 4rem 2rem;
+    padding: 6rem 2rem;
+    z-index: 1;
 }
 
 /* ==========================================================================
-   SECTION 1: THE VOID HERO
+   THE LIVING MANUSCRIPT BORDER SYSTEM
+   Pulls your custom designed border framing dynamically onto the screen
    ========================================================================== */
-.hero-void {
-    background: radial-gradient(circle at center, #0f0d0b 0%, var(--void-black) 70%);
+.manuscript-frame-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 4rem;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    
+    /* Subtle glow boundary matching your manuscript pages */
+    border: 1px solid rgba(183, 189, 199, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
 }
 
-.hero-text-wrap {
-    text-align: center;
-    z-index: 10;
+/* Creating the geometric framing system using decorative edge selectors */
+.manuscript-frame-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 1px solid rgba(201, 106, 27, 0.15);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ==========================================================================
+   SECTION UI COMPONENTS
+   ========================================================================== */
+.hero-void {
+    background: radial-gradient(circle at center, #0f0d0b 0%, var(--void-black) 80%);
 }
 
 .main-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-size: clamp(2rem, 4.5vw, 4rem);
     font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: 0.4rem;
+    line-height: 1.3;
+    letter-spacing: 0.35rem;
     text-transform: uppercase;
     color: var(--aura-white);
-    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .subtitle-serif {
     display: block;
-    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
-    letter-spacing: 0.2rem;
+    font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+    letter-spacing: 0.15rem;
     color: var(--spirit-silver);
     font-weight: 400;
     text-transform: none;
-    margin-top: 1rem;
+    margin-top: 1.2rem;
 }
 
 .gate-symbol {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     letter-spacing: 0.8rem;
     color: var(--flame-orange);
-    text-shadow: 0 0 15px rgba(201, 106, 27, 0.4);
+    text-shadow: 0 0 15px rgba(201, 106, 27, 0.3);
     font-weight: 700;
-    margin-top: 3rem;
-    display: inline-block;
+    margin-top: 3.5rem;
+    text-align: center;
 }
 
-/* ==========================================================================
-   SECTION 2: THE IMMERSIVE DUALITY SHOWCASE
-   ========================================================================== */
+/* Duality Canvas Setup */
 .duality-canvas {
     background-color: var(--void-black);
-    overflow: hidden;
 }
 
 .canvas-container {
     width: 100%;
-    max-width: 1200px;
-    height: 80vh;
+    max-width: 900px;
+    height: 75vh;
     position: relative;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* The Sufi Figure Dynamic Layer */
 .sufi-layer {
     position: absolute;
     top: 0;
@@ -119,81 +144,62 @@ body, html {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.85;
-    filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.9));
-    z-index: 2;
-}
-
-/* Atmospheric Overlay text */
-.interactive-overlay {
-    position: absolute;
-    bottom: 5%;
-    z-index: 5;
-    width: 100%;
-    max-width: 600px;
-    text-align: center;
-    background: linear-gradient(to top, rgba(5,5,5,0.9) 60%, rgba(5,5,5,0));
-    padding: 2rem;
+    opacity: 0.9;
+    z-index: 1;
 }
 
 .testimony-text {
     font-family: var(--font-heading);
-    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-    font-style: italic;
-    line-height: 1.6;
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    line-height: 1.8;
     color: var(--spirit-silver);
-    letter-spacing: 0.05rem;
+    text-align: center;
+    letter-spacing: 0.08rem;
+    max-width: 650px;
+    margin: 0 auto;
 }
 
-/* ==========================================================================
-   SECTION 3: THE GATEWAY (PRE-ORDER / LAUNCH GATE)
-   ========================================================================== */
+/* Gateway Form UI */
 .gateway-release {
     background: linear-gradient(to bottom, var(--void-black) 0%, #0d0905 100%);
-    border-top: 1px solid rgba(201, 106, 27, 0.15);
-}
-
-.form-container {
-    text-align: center;
-    max-width: 500px;
-    width: 100%;
-    z-index: 10;
 }
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
     text-transform: uppercase;
-    letter-spacing: 0.3rem;
+    letter-spacing: 0.25rem;
     color: var(--gold-glow);
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
 }
 
 .form-description {
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--spirit-silver);
     margin-bottom: 2.5rem;
     letter-spacing: 0.05rem;
+    text-align: center;
 }
 
-/* Zero-Cost Minimalist Form Styling */
 .launch-gate-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
 }
 
 .gate-input {
     width: 100%;
-    padding: 1.2rem;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(183, 189, 199, 0.2);
+    padding: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(183, 189, 199, 0.15);
     color: var(--aura-white);
     font-family: var(--font-body);
     font-size: 1rem;
-    letter-spacing: 0.05rem;
     transition: all 0.4s ease;
 }
 
@@ -201,18 +207,17 @@ body, html {
     outline: none;
     border-color: var(--flame-orange);
     background-color: rgba(201, 106, 27, 0.02);
-    box-shadow: 0 0 15px rgba(201, 106, 27, 0.1);
 }
 
 .gate-button {
     width: 100%;
-    padding: 1.2rem;
+    padding: 1.1rem;
     background-color: var(--flame-orange);
     color: var(--void-black);
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 0.2rem;
+    font-size: 1rem;
+    letter-spacing: 0.15rem;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
@@ -221,18 +226,18 @@ body, html {
 
 .gate-button:hover {
     background-color: var(--gold-glow);
-    box-shadow: 0 0 25px rgba(242, 179, 92, 0.4);
+    box-shadow: 0 0 20px rgba(242, 179, 92, 0.3);
 }
 
-/* Mobile Specific Tweaks */
+/* Mobile Configurations */
 @media (max-width: 768px) {
-    .section {
-        padding: 2rem 1rem;
+    .manuscript-frame-wrapper {
+        padding: 2rem 1.5rem;
     }
-    .canvas-container {
-        height: 60vh;
-    }
-    .sufi-layer {
-        background-size: cover; /* Protects figure clarity on smaller screens */
+    .manuscript-frame-wrapper::before {
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
     }
 }
