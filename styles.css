@@ -251,3 +251,82 @@ body, html {
         height: 60vh;
     }
 }
+/* ==========================================================================
+   AUDIO TRANSMISSION LAYER COMPONENTS
+   ========================================================================== */
+.audio-transmission-box {
+    width: 100%;
+    max-width: 450px;
+    margin: 3rem auto 0 auto;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(201, 106, 27, 0.15);
+    position: relative;
+    z-index: 10;
+}
+
+.audio-interface-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    letter-spacing: 0.15rem;
+    color: var(--spirit-silver);
+    font-family: var(--font-heading);
+    margin-bottom: 1.5rem;
+}
+
+.transmission-status {
+    color: var(--flame-orange);
+}
+
+/* Minimalist Waveform Bar Grid */
+.waveform-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    height: 40px;
+    margin-bottom: 1.5rem;
+}
+
+.waveform-container .bar {
+    width: 3px;
+    height: 15px;
+    background-color: rgba(183, 189, 199, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Dynamic active state class controlled by JS toggle */
+.waveform-container.playing .bar {
+    background-color: var(--gold-glow);
+    animation: bounceWaveform 1.2s ease-in-out infinite alternate;
+}
+
+/* Alternate animation offsets to make waveform look realistic */
+.waveform-container.playing .bar:nth-child(even) { animation-delay: 0.2s; }
+.waveform-container.playing .bar:nth-child(3n) { animation-delay: 0.4s; }
+.waveform-container.playing .bar:nth-child(4n) { animation-delay: 0.1s; }
+
+@keyframes bounceWaveform {
+    0% { height: 10px; }
+    100% { height: 38px; }
+}
+
+.audio-toggle-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    border: 1px solid var(--spirit-silver);
+    color: var(--aura-white);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 0.15rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.audio-toggle-btn:hover {
+    border-color: var(--flame-orange);
+    color: var(--flame-orange);
+    box-shadow: 0 0 15px rgba(201, 106, 27, 0.1);
+}
