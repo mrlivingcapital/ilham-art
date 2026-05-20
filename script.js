@@ -100,3 +100,23 @@ function initSufiCinematicEngine() {
         ease: "sine.inOut"
     });
 }
+
+// Append this function block to the base of script.js to initialize the audio triggers
+const playButton = document.getElementById('playTrigger');
+const audioTrack = document.getElementById('manuscriptAudio');
+const waveformVisual = document.querySelector('.waveform-container');
+
+if (playButton && audioTrack) {
+    playButton.addEventListener('click', () => {
+        if (audioTrack.paused) {
+            // Audio engine execution safety catch
+            audioTrack.play().catch(err => console.log("Audio file initialization waiting for asset link."));
+            playButton.textContent = "SUSPEND TRANSMISSION";
+            waveformVisual.classList.add('playing');
+        } else {
+            audioTrack.pause();
+            playButton.textContent = "LISTEN TO VOICE WITNESS";
+            waveformVisual.classList.remove('playing');
+        }
+    });
+}
