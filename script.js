@@ -120,3 +120,46 @@ if (playButton && audioTrack) {
         }
     });
 }
+// Append this scrolling line animation inside the main initSufiCinematicEngine wrapper
+gsap.to(".line-alpha span", {
+    xPercent: -15,
+    scrollTrigger: {
+        trigger: ".kinetic-poetry-void",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+    }
+});
+
+gsap.to(".line-beta span", {
+    xPercent: 15,
+    scrollTrigger: {
+        trigger: ".kinetic-poetry-void",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+    }
+});
+
+gsap.to(".line-gamma span", {
+    xPercent: -10,
+    scrollTrigger: {
+        trigger: ".kinetic-poetry-void",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+    }
+});
+
+// Fade the poetic lines up dynamically as they take center screen
+gsap.utils.toArray(".scrolling-verse-line").forEach(line => {
+    gsap.to(line, {
+        opacity: 0.9,
+        scrollTrigger: {
+            trigger: line,
+            start: "top 80%",
+            end: "top 45%",
+            scrub: true
+        }
+    });
+});
