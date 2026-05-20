@@ -1,0 +1,238 @@
+/* ==========================================================================
+   THE DARK SIDE OF AN ENLIGHTENED SUFI'S MIND - MASTER DESIGN SYSTEM
+   Color Palette: #050505 (Void), #C96A1B (Flame), #F2B35C (Gold Glow)
+   ========================================================================== */
+
+:root {
+    --void-black: #050505;
+    --flame-orange: #C96A1B;
+    --gold-glow: #F2B35C;
+    --aura-white: #F5F1EA;
+    --spirit-silver: #B7BDC7;
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* Reset & Core Setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background-color: var(--void-black);
+    color: var(--aura-white);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth Scrolling Wrapper */
+.scroll-container {
+    width: 100%;
+    position: relative;
+}
+
+/* Base Full-Screen Section Architecture */
+.section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 4rem 2rem;
+}
+
+/* ==========================================================================
+   SECTION 1: THE VOID HERO
+   ========================================================================== */
+.hero-void {
+    background: radial-gradient(circle at center, #0f0d0b 0%, var(--void-black) 70%);
+}
+
+.hero-text-wrap {
+    text-align: center;
+    z-index: 10;
+}
+
+.main-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.4rem;
+    text-transform: uppercase;
+    color: var(--aura-white);
+    margin-bottom: 2rem;
+}
+
+.subtitle-serif {
+    display: block;
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+    letter-spacing: 0.2rem;
+    color: var(--spirit-silver);
+    font-weight: 400;
+    text-transform: none;
+    margin-top: 1rem;
+}
+
+.gate-symbol {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    letter-spacing: 0.8rem;
+    color: var(--flame-orange);
+    text-shadow: 0 0 15px rgba(201, 106, 27, 0.4);
+    font-weight: 700;
+    margin-top: 3rem;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   SECTION 2: THE IMMERSIVE DUALITY SHOWCASE
+   ========================================================================== */
+.duality-canvas {
+    background-color: var(--void-black);
+    overflow: hidden;
+}
+
+.canvas-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 80vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The Sufi Figure Dynamic Layer */
+.sufi-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/sufi-figure.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.9));
+    z-index: 2;
+}
+
+/* Atmospheric Overlay text */
+.interactive-overlay {
+    position: absolute;
+    bottom: 5%;
+    z-index: 5;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    background: linear-gradient(to top, rgba(5,5,5,0.9) 60%, rgba(5,5,5,0));
+    padding: 2rem;
+}
+
+.testimony-text {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--spirit-silver);
+    letter-spacing: 0.05rem;
+}
+
+/* ==========================================================================
+   SECTION 3: THE GATEWAY (PRE-ORDER / LAUNCH GATE)
+   ========================================================================== */
+.gateway-release {
+    background: linear-gradient(to bottom, var(--void-black) 0%, #0d0905 100%);
+    border-top: 1px solid rgba(201, 106, 27, 0.15);
+}
+
+.form-container {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    z-index: 10;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    color: var(--gold-glow);
+    margin-bottom: 1rem;
+}
+
+.form-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--spirit-silver);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05rem;
+}
+
+/* Zero-Cost Minimalist Form Styling */
+.launch-gate-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.gate-input {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(183, 189, 199, 0.2);
+    color: var(--aura-white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+    transition: all 0.4s ease;
+}
+
+.gate-input:focus {
+    outline: none;
+    border-color: var(--flame-orange);
+    background-color: rgba(201, 106, 27, 0.02);
+    box-shadow: 0 0 15px rgba(201, 106, 27, 0.1);
+}
+
+.gate-button {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: var(--flame-orange);
+    color: var(--void-black);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.gate-button:hover {
+    background-color: var(--gold-glow);
+    box-shadow: 0 0 25px rgba(242, 179, 92, 0.4);
+}
+
+/* Mobile Specific Tweaks */
+@media (max-width: 768px) {
+    .section {
+        padding: 2rem 1rem;
+    }
+    .canvas-container {
+        height: 60vh;
+    }
+    .sufi-layer {
+        background-size: cover; /* Protects figure clarity on smaller screens */
+    }
+}
