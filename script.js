@@ -1,78 +1,102 @@
 /* ==========================================================================
-   THE DARK SIDE OF AN ENLIGHTENED SUFI'S MIND - KINETIC MOTION ENGINE
+   THE DARK SIDE OF AN ENLIGHTENED SUFI'S MIND - KINETIC MOTION ENGINE V2
    Library Engine: GSAP 3.12.5 Core + ScrollTrigger Plugin
+   Target Optimization: Desktop & iPhone 14/15 Responsive Viewports
    ========================================================================== */
 
-// Explicit safety registration of the motion plugin
+// Register the core scroll-tracking engine safely
 gsap.registerPlugin(ScrollTrigger);
 
 window.addEventListener('DOMContentLoaded', () => {
-    initializeCinematicAnimations();
+    // Fire the initialization sequence once the browser renders the markup
+    initSufiCinematicEngine();
 });
 
-function initializeCinematicAnimations() {
+function initSufiCinematicEngine() {
     
     // ----------------------------------------------------------------------
-    // ANIMATION 1: THE VOID HERO FADE-OUT
-    // Fades and shifts headers dynamically based on scroll delta
+    // 1. HERO TEXT RADIAL DISPERSION
+    // Smoothly dissolves and drops the primary header into the black void
     // ----------------------------------------------------------------------
-    gsap.to(".hero-text-wrap", {
+    gsap.to(".hero-void .frame-content-gate", {
         scrollTrigger: {
             trigger: ".hero-void",
-            start: "top top",      // Begins when top of hero hits top of viewport
-            end: "bottom top",     // Concludes when bottom of hero clears viewport
-            scrub: 1,              // Smooth time-catchup sync to mouse wheel
+            start: "top top",      // Activates immediately as scroll begins
+            end: "bottom top",     // Concludes when the hero section fully exits
+            scrub: 1,              // Ties animation tightly to the scroll speed
             invalidateOnRefresh: true
         },
         opacity: 0,
-        y: -60,
-        ease: "power1.inOut"
+        y: -50,                    // Shifts upward gently as it disappears
+        scale: 0.97,               // Recedes into the background
+        ease: "none"
     });
 
     // ----------------------------------------------------------------------
-    // ANIMATION 2: THE IMMERSIVE REVEAL
-    // Creates a depth-scaling effect to draw attention to the book theme
+    // 2. 2.5D PARALLAX SUFI LAYER ZOOM
+    // Scales and shifts the figure independently to create an illusion of depth
     // ----------------------------------------------------------------------
-    const timelineDuality = gsap.timeline({
-        scrollTrigger: {
-            trigger: ".duality-canvas",
-            start: "top bottom",   // Begins when the top enters from the bottom screen
-            end: "bottom top",     // Ends when fully passing through view
-            scrub: 1.5,            // Slightly slower delay for premium weight feel
-            invalidateOnRefresh: true
+    gsap.fromTo(".sufi-layer", 
+        { 
+            scale: 0.95,
+            y: -30
+        },
+        {
+            scale: 1.08,           // Zooms forward smoothly as you descend
+            y: 30,                 // Shifts downward at a offset speed
+            scrollTrigger: {
+                trigger: ".duality-canvas",
+                start: "top bottom", // Starts when section apex breaks bottom screen
+                end: "bottom top",   // Ends when section base leaves top screen
+                scrub: 1.5,          // Slower scrub creates an organic, heavy feel
+                invalidateOnRefresh: true
+            },
+            ease: "power1.out"
         }
+    );
+
+    // ----------------------------------------------------------------------
+    // 3. REVEAL SCROLL FOR MANUSCRIPT TEXT FRAMES
+    // Gently fades and reveals poetry lines inside your geometric borders
+    // ----------------------------------------------------------------------
+    const manuscriptFrames = gsap.utils.toArray(".manuscript-frame-wrapper");
+    
+    manuscriptFrames.forEach((frame, index) => {
+        // Skip the very first hero frame so it displays instantly on load
+        if (index === 0) return;
+
+        gsap.fromTo(frame.querySelector(".frame-content-gate"), 
+            { 
+                opacity: 0, 
+                y: 40,
+                scale: 0.98
+            },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                scrollTrigger: {
+                    trigger: frame,
+                    start: "top 85%",    // Triggers when the card is near the lower viewport
+                    end: "top 50%",      // Fully displays by the time it reaches center screen
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                },
+                ease: "power2.out"
+            }
+        );
     });
 
-    timelineDuality.fromTo(".sufi-layer", 
-        { 
-            scale: 0.9, 
-            opacity: 0.4 
-        },
-        { 
-            scale: 1.05, 
-            opacity: 0.95, 
-            ease: "power2.out" 
-        }
-    );
-
-    timelineDuality.fromTo(".testimony-text",
-        { 
-            y: 40, 
-            opacity: 0 
-        },
-        { 
-            y: 0, 
-            opacity: 1, 
-            ease: "power1.out" 
-        },
-        "-=0.5" // Overlaps timeline slightly so text appears alongside scaling asset
-    );
-
     // ----------------------------------------------------------------------
-    // ANIMATION 3: SYSTEM INTERFACE REFRESH SPEED GUARD
-    // Guarantees layout dimensions map properly across responsive window resizes
+    // 4. BUTTON GLOW CYCLE
+    // An infinite, loopable breathing pulse effect for the preorder gateway
     // ----------------------------------------------------------------------
-    ScrollTrigger.addEventListener("refresh", () => {
-        // Keeps computational boundaries locked relative to mobile address bars
+    gsap.to(".gate-button", {
+        boxShadow: "0 0 25px rgba(201, 106, 27, 0.5)",
+        borderColor: "rgba(242, 179, 92, 0.6)",
+        duration: 2,
+        yoyo: true,          // Automatically reverses direction
+        repeat: -1,          // Loops indefinitely
+        ease: "sine.inOut"
     });
 }
